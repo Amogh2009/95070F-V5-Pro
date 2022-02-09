@@ -275,7 +275,7 @@ void turnClockwise(double amount){
 
 
 int selected = 0;
-std::string autons[4] = {"Disabled", "Right 1 Neutral", "Auton2", "Auton3"};
+std::string autons[4] = {"Disabled", "Right 1 Neutral", "AWP Left", "AWP Right"};
 int size = 4;
 
 void autonSelector(){
@@ -284,7 +284,8 @@ void autonSelector(){
   while(true){
     Controller1.Screen.clearScreen();
     task::sleep(100);
-    Controller1.Screen.newLine();
+    Controller1.Screen.clearLine(2);
+    Controller1.Screen.setCursor(2,1);
     Controller1.Screen.print(autons[selected].c_str());
     task::sleep(100);
      if(Controller1.ButtonRight.pressing()){
@@ -318,29 +319,57 @@ void pre_auton(void) {
 /*---------------------------------------------------------------------------*/
 void autonomous(void) {
   switch(selected){
-    case 0:
+    case 0:{
       break;
-    case 1:
-      LeftFront.setVelocity(195, rpm);
-      LeftMiddle.setVelocity(195, rpm);
-      LeftBack.setVelocity(195, rpm);
-      RightFront.setVelocity(195, rpm);
-      RightMiddle.setVelocity(195, rpm);
-      RightBack.setVelocity(195, rpm);
-      LeftFront.spinFor(forward, 5316, degrees, false);
-      LeftBack.spinFor(forward, 5316, degrees, false);
-      RightFront.spinFor(forward, 5316, degrees, false);
-      RightBack.spinFor(forward, 5316, degrees, false);
-      LeftMiddle.spinFor(forward, 5316, degrees, false);
-      RightMiddle.spinFor(forward, 5316, degrees, true);
-      wait(50, msec);
-      Clamp.spinFor(reverse, 69, degrees);
-      LeftFront.spinFor(reverse, 5316, degrees, false);
-      LeftBack.spinFor(reverse, 5316, degrees, false);
-      RightFront.spinFor(reverse, 5316, degrees, false);
-      RightBack.spinFor(reverse, 5316, degrees, false);
-      LeftMiddle.spinFor(reverse, 5316, degrees, false);
-      RightMiddle.spinFor(reverse, 5316, degrees, true);
+    }
+    case 1:{
+      int x = 950;
+      LeftFront.setStopping(coast);
+      LeftBack.setStopping(coast);
+      LeftMiddle.setStopping(coast);
+      RightBack.setStopping(coast);
+      RightFront.setStopping(coast);
+      RightMiddle.setStopping(coast);
+
+      LeftFront.setVelocity(200, rpm);
+      LeftMiddle.setVelocity(200, rpm);
+      LeftBack.setVelocity(200, rpm);
+      RightFront.setVelocity(200, rpm);
+      RightMiddle.setVelocity(200, rpm);
+      RightBack.setVelocity(200, rpm);
+      LeftFront.spinFor(forward, x, degrees, false);
+      LeftBack.spinFor(forward, x, degrees, false);
+      RightFront.spinFor(forward, x, degrees, false);
+      RightBack.spinFor(forward, x, degrees, false);
+      LeftMiddle.spinFor(forward, x, degrees, false);
+      RightMiddle.spinFor(forward, x, degrees, true);
+      Clamp.spinFor(forward, 60, degrees);
+      LeftFront.spinFor(reverse, x, degrees, false);
+      LeftBack.spinFor(reverse, x, degrees, false);
+      RightFront.spinFor(reverse, x, degrees, false);
+      RightBack.spinFor(reverse, x, degrees, false);
+      LeftMiddle.spinFor(reverse, x, degrees, false);
+      RightMiddle.spinFor(reverse, x, degrees, true);
+      break; 
+    }
+    case 2: {
+      LeftFront.setStopping(coast);
+      LeftBack.setStopping(coast);
+      LeftMiddle.setStopping(coast);
+      RightBack.setStopping(coast);
+      RightFront.setStopping(coast);
+      RightMiddle.setStopping(coast);
+      break;
+    }
+    case 3: {
+      LeftFront.setStopping(coast);
+      LeftBack.setStopping(coast);
+      LeftMiddle.setStopping(coast);
+      RightBack.setStopping(coast);
+      RightFront.setStopping(coast);
+      RightMiddle.setStopping(coast);
+      break;
+    }
   }
 }
 /*---------------------------------------------------------------------------*/
@@ -351,13 +380,10 @@ void autonomous(void) {
 void usercontrol(void) {
  // User control code here, inside the loop
   while (1) {
-    Controller1.Screen.print(RightLift.temperature(celsius));
     simpleDrive();
     armLift();
     hookLift();
     platformMode();
-    Controller1.Screen.clearLine(3);
-    Controller1.Screen.setCursor(3,1);
     if(Controller1.ButtonLeft.pressing() && Controller1.ButtonRight.pressing()){
       RightLift.stop(hold);
       Clamp.stop(hold);
