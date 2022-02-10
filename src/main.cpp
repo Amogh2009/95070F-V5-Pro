@@ -161,32 +161,15 @@ void goSlow(){
 }
 
 void simpleDrive(){
-  if(abs(Controller1.Axis2.position(percent))>abs(5)){ 
-    RightBack.setVelocity(Controller1.Axis2.position(percent)/speedFactor, percent);
-    RightFront.setVelocity(Controller1.Axis2.position(percent)/speedFactor, percent);
-    RightMiddle.setVelocity(Controller1.Axis2.position(percent)/speedFactor, percent);    
-    RightBack.spin(forward);
-    RightFront.spin(forward);
-    RightMiddle.spin(forward);
-  }
-  else{
-    RightBack.stop(coast);
-    RightFront.stop(coast);
-    RightMiddle.stop(coast);
-  }
-  if(abs(Controller1.Axis3.position(percent))>abs(5)){
-    LeftBack.setVelocity(Controller1.Axis3.position(percent)/speedFactor, percent);
-    LeftFront.setVelocity(Controller1.Axis3.position(percent)/speedFactor, percent);
-    LeftMiddle.setVelocity(Controller1.Axis3.position(percent)/speedFactor, percent);
-    LeftBack.spin(forward);
-    LeftFront.spin(forward);
-    LeftMiddle.spin(forward);
-  }
-  else{
-    LeftBack.stop(coast);
-    LeftFront.stop(coast);
-    LeftMiddle.stop(coast);
-  }
+  double forwardAmount = Controller1.Axis3.position();
+  double turnAmount = Controller1.Axis1.position();
+  RightFront.spin(forward, forwardAmount-turnAmount, percent);
+  RightBack.spin(forward, forwardAmount-turnAmount, percent);
+  RightMiddle.spin(forward, forwardAmount-turnAmount, percent);
+  LeftFront.spin(forward, forwardAmount+turnAmount, percent);
+  LeftBack.spin(forward, forwardAmount+turnAmount, percent);
+  LeftMiddle.spin(forward, forwardAmount+turnAmount, percent);
+
 }
 //Void that controls the movement of the 4-bar lift
 void armLift(){
