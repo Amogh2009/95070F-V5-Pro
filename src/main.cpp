@@ -363,6 +363,7 @@ void autonomous(void) {
 void usercontrol(void) {
  // User control code here, inside the loop
   while (1) {
+    Clamp.setStopping(hold);
     simpleDrive();
     armLift();
     clampMovement();
