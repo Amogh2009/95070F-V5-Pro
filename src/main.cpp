@@ -173,11 +173,11 @@ void simpleDrive(){
 }
 //Void that controls the movement of the 4-bar lift
 void armLift(){
-  if (Controller1.ButtonR1.pressing()) {
+  if (Controller1.ButtonL2.pressing()) {
     RightLift.setVelocity(90, percent);
     RightLift.spin(forward);
   }
-  else if (Controller1.ButtonR2.pressing()){
+  else if (Controller1.ButtonL1.pressing()){
     RightLift.setVelocity(90, percent);
     RightLift.spin(reverse);
   }
@@ -186,13 +186,13 @@ void armLift(){
     RightLift.stop();
   }
 }
-//Void that controls movement of the hook grabber at the end of the 6-bar
-void hookLift() {
-  if(Controller1.ButtonL1.pressing()){
+
+void clampMovement() {
+  if(Controller1.ButtonR2.pressing()){
     Clamp.setVelocity(50,percent);
     Clamp.spin(forward);
   }
-  else if(Controller1.ButtonL2.pressing()){
+  else if(Controller1.ButtonR1.pressing()){
     Clamp.setVelocity(50, percent);
     Clamp.spin(reverse);
   }
@@ -365,7 +365,7 @@ void usercontrol(void) {
   while (1) {
     simpleDrive();
     armLift();
-    hookLift();
+    clampMovement();
     platformMode();
     if(Controller1.ButtonLeft.pressing() && Controller1.ButtonRight.pressing()){
       RightLift.stop(hold);
