@@ -2577,9 +2577,9 @@ Linker script and memory map
  .text._Z7armLiftv
                 0x03800530       0xe0 build/src/main.o
                 0x03800530                armLift()
- .text._Z8hookLiftv
+ .text._Z13clampMovementv
                 0x03800610       0xe0 build/src/main.o
-                0x03800610                hookLift()
+                0x03800610                clampMovement()
  .text.__cxx_global_array_dtor
                 0x038006f0       0x2c build/src/main.o
  .text._Z13autonSelectorv
@@ -3442,7 +3442,7 @@ Linker script and memory map
  .ARM.exidx.text._Z7armLiftv
                 0x03803e8c        0x0 build/src/main.o
                                   0x8 (size before relaxing)
- .ARM.exidx.text._Z8hookLiftv
+ .ARM.exidx.text._Z13clampMovementv
                 0x03803e8c        0x0 build/src/main.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.__cxx_global_array_dtor
