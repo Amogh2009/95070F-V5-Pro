@@ -336,7 +336,12 @@ void autonomous(void) {
       RightFront.stop();
       RightBack.stop();
       RightMiddle.stop();
-      Clamp.spinFor(forward, 130, degrees); // TEST EDIT - CHANGED 120 to 130
+      Clamp.spinFor(forward, 140, degrees); // TEST EDIT - CHANGED 130 to 140
+
+      LeftFront.setVelocity(100, rpm);
+      LeftMiddle.setVelocity(100, rpm);
+      LeftBack.setVelocity(100, rpm);
+
       LeftFront.spinFor(reverse, x, degrees, false);
       LeftBack.spinFor(reverse, x, degrees, false);
       RightFront.spinFor(reverse, x, degrees, false);
