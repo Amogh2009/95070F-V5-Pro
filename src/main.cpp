@@ -13,7 +13,7 @@
 // Controller1          controller                    
 // OldbackPiston        digital_out   D               
 // LeftMiddle           motor         9               
-// RightMiddle          motor         6               
+// RightMiddle          motor         7               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 using namespace vex;
 // A global instance of competition
