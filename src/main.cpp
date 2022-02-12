@@ -306,27 +306,36 @@ void autonomous(void) {
       break;
     }
     case 1:{
-      int x = 950;
+      int x = 980;
       LeftFront.setStopping(coast);
       LeftBack.setStopping(coast);
       LeftMiddle.setStopping(coast);
       RightBack.setStopping(coast);
       RightFront.setStopping(coast);
       RightMiddle.setStopping(coast);
-
       LeftFront.setVelocity(200, rpm);
       LeftMiddle.setVelocity(200, rpm);
       LeftBack.setVelocity(200, rpm);
       RightFront.setVelocity(200, rpm);
       RightMiddle.setVelocity(200, rpm);
       RightBack.setVelocity(200, rpm);
+      LeftFront.setPosition(0, degrees);
       Clamp.setVelocity(200, rpm); //BEN TEST EDIT - ADDED
-      LeftFront.spinFor(forward, x, degrees, false);
-      LeftBack.spinFor(forward, x, degrees, false);
-      RightFront.spinFor(forward, x, degrees, false);
-      RightBack.spinFor(forward, x, degrees, false);
-      LeftMiddle.spinFor(forward, x, degrees, false);
-      RightMiddle.spinFor(forward, x, degrees, true);
+      LeftFront.spin(forward);
+      LeftBack.spin(forward);
+      RightFront.spin(forward);
+      RightBack.spin(forward);
+      LeftMiddle.spin(forward);
+      RightMiddle.spin(forward);
+      while(LeftFront.position(degrees)< x){
+        wait(10, msec);
+      }
+      LeftFront.stop();
+      LeftMiddle.stop();
+      LeftBack.stop();
+      RightFront.stop();
+      RightBack.stop();
+      RightMiddle.stop();
       Clamp.spinFor(forward, 130, degrees); // TEST EDIT - CHANGED 120 to 130
       LeftFront.spinFor(reverse, x, degrees, false);
       LeftBack.spinFor(reverse, x, degrees, false);
