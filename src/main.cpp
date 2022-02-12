@@ -258,7 +258,7 @@ void turnClockwise(double amount){
 
 
 int selected = 0;
-std::string autons[4] = {"Disabled", "Right 1 Neutral", "AWP Left", "AWP Right"};
+std::string autons[4] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right"};
 int size = 4;
 
 void autonSelector(){
@@ -327,7 +327,7 @@ void autonomous(void) {
       RightBack.spinFor(forward, x, degrees, false);
       LeftMiddle.spinFor(forward, x, degrees, false);
       RightMiddle.spinFor(forward, x, degrees, true);
-      Clamp.spinFor(forward, 130, degrees); //BEN TEST EDIT - CHANGED 120 to 130
+      Clamp.spinFor(forward, 130, degrees); // TEST EDIT - CHANGED 120 to 130
       LeftFront.spinFor(reverse, x, degrees, false);
       LeftBack.spinFor(reverse, x, degrees, false);
       RightFront.spinFor(reverse, x, degrees, false);
