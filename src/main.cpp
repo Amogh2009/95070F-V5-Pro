@@ -142,10 +142,11 @@ void goSlow(){
 void simpleDrive(){
   double forwardAmount = Controller1.Axis3.position();
   double turnAmount = Controller1.Axis1.position(); //Axis 4 for unified joystick
-  RightFront.spin(forward, forwardAmount-turnAmount, percent);
-  RightBack.spin(forward, forwardAmount-turnAmount, percent);
-  LeftFront.spin(forward, forwardAmount+turnAmount, percent);
-  LeftBack.spin(forward, forwardAmount+turnAmount, percent);
+  
+  RightFront.spin(forward, (forwardAmount-turnAmount)*2, percent);
+  RightBack.spin(forward, (forwardAmount-turnAmount)*2, percent);
+  LeftFront.spin(forward, (forwardAmount+turnAmount)*2, percent);
+  LeftBack.spin(forward, (forwardAmount+turnAmount)*2, percent);
 
 }
 //Void that controls the movement of the 4-bar lift
@@ -166,11 +167,11 @@ void armLift(){
 
 void clampMovement() {
   if(Controller1.ButtonR2.pressing()){
-    Clamp.setVelocity(50,percent);
+    Clamp.setVelocity(100,percent);
     Clamp.spin(forward);
   }
   else if(Controller1.ButtonR1.pressing()){
-    Clamp.setVelocity(50, percent);
+    Clamp.setVelocity(100, percent);
     Clamp.spin(reverse);
   }
   else{
@@ -295,7 +296,7 @@ void autonomous(void) {
       RightBack.stop();
       Clamp.spinFor(forward, 140, degrees); // TEST EDIT - CHANGED 130 to 140
 
-      LeftFront.setVelocity(100, rpm);
+      LeftFront.setVelocity(100, rpm);   // please write the purpose of this 2 lines
       LeftBack.setVelocity(100, rpm);
 
       LeftFront.spinFor(reverse, x, degrees, false);
@@ -322,16 +323,16 @@ void autonomous(void) {
 }
 
 /*---------------------------------------------------------------------------*/
-/*                                Amazing SPorklift Code                     */
+/*                                    SPorklift Code                         */
 /*---------------------------------------------------------------------------*/
 
 void sporkliftMovement() {
   if(Controller1.ButtonUp.pressing()){
-    Sporklift.setVelocity(50,percent);
+    Sporklift.setVelocity(100,percent);
     Sporklift.spin(forward);
   }
   else if(Controller1.ButtonDown.pressing()){
-    Sporklift.setVelocity(50, percent);
+    Sporklift.setVelocity(100, percent);
     Sporklift.spin(reverse);
   }
   else{
