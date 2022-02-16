@@ -12,8 +12,7 @@
 // Inertial             inertial      1               
 // Controller1          controller                    
 // OldbackPiston        digital_out   D               
-// LeftMiddle           motor         9               
-// RightMiddle          motor         7               
+// Sporklift            motor         7               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 using namespace vex;
 // A global instance of competition
@@ -57,8 +56,6 @@ void PID (double kP, double kI, double kD, double maxIntegral, double tolerance,
     RightBack.spin(forward);
     LeftFront.spin(forward);
     RightFront.spin(forward);
-    LeftMiddle.spin(forward);
-    RightMiddle.spin(forward);
     double SensorValue = LeftBack.position(turns)*3.25*5/3*M_PI;
     error = target - SensorValue;
     integral = integral + error;
@@ -77,32 +74,24 @@ void PID (double kP, double kI, double kD, double maxIntegral, double tolerance,
       RightBack.setVelocity(getSign(total)*maximumSpeed + 0.5*amountOff, percent);
       LeftFront.setVelocity(getSign(total)*maximumSpeed - 0.5*amountOff, percent);
       RightFront.setVelocity(getSign(total)*maximumSpeed + 0.5*amountOff, percent);
-      LeftMiddle.setVelocity(getSign(total)*maximumSpeed - 0.5*amountOff, percent);
-      RightMiddle.setVelocity(getSign(total)*maximumSpeed + 0.5*amountOff, percent);
     }
     else if(fabs(total) < fabs(minimumSpeed)){
       LeftBack.setVelocity(getSign(total)*minimumSpeed - 0.5*amountOff, percent);
       RightBack.setVelocity(getSign(total)*minimumSpeed + 0.5*amountOff, percent);
       LeftFront.setVelocity(getSign(total)*minimumSpeed - 0.5*amountOff, percent);
       RightFront.setVelocity(getSign(total)*minimumSpeed + 0.5*amountOff, percent);
-      LeftMiddle.setVelocity(getSign(total)*minimumSpeed - 0.5*amountOff, percent);
-      RightMiddle.setVelocity(getSign(total)*minimumSpeed + 0.5*amountOff, percent);
     }
     else{
       LeftBack.setVelocity(total - 0.5*amountOff, percent);
       RightBack.setVelocity(total + 0.5*amountOff, percent);
       LeftFront.setVelocity(total - 0.5*amountOff, percent);
       RightFront.setVelocity(total + 0.5*amountOff,percent);
-      LeftMiddle.setVelocity(total - 0.5*amountOff, percent);
-      RightMiddle.setVelocity(total + 0.5*amountOff,percent);
     }
   }
   LeftBack.stop(brake);
   RightBack.stop(brake);
   RightFront.stop(brake);
   LeftFront.stop(brake);
-  LeftMiddle.stop(brake);
-  RightMiddle.stop(brake);
 }
 //Void that controls the drivetrain based on inputs from the joysticks
 
@@ -123,52 +112,40 @@ void goSlow(){
     RightBack.spin(forward, 50, percent);
     LeftFront.spin(forward, 50, percent);
     RightFront.spin(forward, 50, percent);
-    LeftMiddle.spin(forward, 50, percent);
-    RightMiddle.spin(forward, 50, percent);
   }
   else if(Controller1.ButtonB.pressing()){
     LeftBack.spin(reverse, 50, percent);
     RightBack.spin(reverse, 50, percent);
     LeftFront.spin(reverse, 50, percent);
     RightFront.spin(reverse, 50, percent);
-    LeftMiddle.spin(reverse, 50, percent);
-    RightMiddle.spin(reverse, 50, percent);
   }
   else if(Controller1.ButtonY.pressing()){
     LeftBack.spin(reverse, 50, percent);
     RightBack.spin(forward, 50, percent);
     LeftFront.spin(reverse, 50, percent);
     RightFront.spin(forward, 50, percent);
-    LeftMiddle.spin(reverse, 50, percent);
-    RightMiddle.spin(forward, 50, percent);
   }
   else if(Controller1.ButtonA.pressing()){
     LeftBack.spin(forward, 50, percent);
     RightBack.spin(reverse, 50, percent);
     LeftFront.spin(forward, 50, percent);
     RightFront.spin(reverse, 50, percent);
-    LeftMiddle.spin(forward, 50, percent);
-    RightMiddle.spin(reverse, 50, percent);
   }
   else{
     RightBack.stop(hold);
     RightFront.stop(hold);
     LeftBack.stop(hold);
     LeftFront.stop(hold);
-    RightMiddle.stop(hold);
-    LeftMiddle.stop(hold);
   }
 }
 
 void simpleDrive(){
   double forwardAmount = Controller1.Axis3.position();
-  double turnAmount = Controller1.Axis1.position();
+  double turnAmount = Controller1.Axis1.position(); //Axis 4 for unified joystick
   RightFront.spin(forward, forwardAmount-turnAmount, percent);
   RightBack.spin(forward, forwardAmount-turnAmount, percent);
-  RightMiddle.spin(forward, forwardAmount-turnAmount, percent);
   LeftFront.spin(forward, forwardAmount+turnAmount, percent);
   LeftBack.spin(forward, forwardAmount+turnAmount, percent);
-  LeftMiddle.spin(forward, forwardAmount+turnAmount, percent);
 
 }
 //Void that controls the movement of the 4-bar lift
@@ -210,22 +187,16 @@ void turnCounterClockwise(double amount){
     RightBack.spin(forward, 0.2*error + 5, percent);
     LeftFront.spin(reverse, 0.2*error + 5, percent);
     RightFront.spin(forward, 0.2*error + 5, percent);
-    LeftMiddle.spin(reverse, 0.2*error + 5, percent);
-    RightMiddle.spin(forward, 0.2*error + 5, percent);    
     wait(5, msec);
   }
   LeftBack.setStopping(hold);
   RightBack.setStopping(hold);
   RightFront.setStopping(hold);
   LeftFront.setStopping(hold);
-  LeftMiddle.setStopping(hold);
-  RightMiddle.setStopping(hold);
   LeftBack.stop();
   RightBack.stop();
   RightFront.stop();
   LeftFront.stop();
-  LeftMiddle.stop();
-  RightMiddle.stop();
   wait(0.5, sec);
 }
 
@@ -237,22 +208,16 @@ void turnClockwise(double amount){
     RightBack.spin(reverse, 0.2*error + 5, percent);
     LeftFront.spin(forward, 0.2*error + 5, percent);
     RightFront.spin(reverse, 0.2*error + 5, percent);
-    LeftMiddle.spin(forward, 0.2*error + 5, percent);
-    RightMiddle.spin(reverse, 0.2*error + 5, percent);
     wait(5, msec);
   }
   LeftBack.setStopping(hold);
   RightBack.setStopping(hold);
   RightFront.setStopping(hold);
   LeftFront.setStopping(hold);
-  LeftMiddle.setStopping(hold);
-  RightMiddle.setStopping(hold);
   LeftBack.stop();
   RightBack.stop();
   RightFront.stop();
   LeftFront.stop();
-  LeftMiddle.stop();
-  RightMiddle.stop();
   wait(0.5, sec);
 }
 
@@ -309,15 +274,11 @@ void autonomous(void) {
       int x = 980;
       LeftFront.setStopping(coast);
       LeftBack.setStopping(coast);
-      LeftMiddle.setStopping(coast);
       RightBack.setStopping(coast);
       RightFront.setStopping(coast);
-      RightMiddle.setStopping(coast);
       LeftFront.setVelocity(200, rpm);
-      LeftMiddle.setVelocity(200, rpm);
       LeftBack.setVelocity(200, rpm);
       RightFront.setVelocity(200, rpm);
-      RightMiddle.setVelocity(200, rpm);
       RightBack.setVelocity(200, rpm);
       LeftFront.setPosition(0, degrees);
       Clamp.setVelocity(200, rpm); //BEN TEST EDIT - ADDED
@@ -325,51 +286,60 @@ void autonomous(void) {
       LeftBack.spin(forward);
       RightFront.spin(forward);
       RightBack.spin(forward);
-      LeftMiddle.spin(forward);
-      RightMiddle.spin(forward);
       while(LeftFront.position(degrees)< x){
         wait(10, msec);
       }
       LeftFront.stop();
-      LeftMiddle.stop();
       LeftBack.stop();
       RightFront.stop();
       RightBack.stop();
-      RightMiddle.stop();
       Clamp.spinFor(forward, 140, degrees); // TEST EDIT - CHANGED 130 to 140
 
       LeftFront.setVelocity(100, rpm);
-      LeftMiddle.setVelocity(100, rpm);
       LeftBack.setVelocity(100, rpm);
 
       LeftFront.spinFor(reverse, x, degrees, false);
       LeftBack.spinFor(reverse, x, degrees, false);
       RightFront.spinFor(reverse, x, degrees, false);
       RightBack.spinFor(reverse, x, degrees, false);
-      LeftMiddle.spinFor(reverse, x, degrees, false);
-      RightMiddle.spinFor(reverse, x, degrees, true);
       break; 
     }
     case 2: {
       LeftFront.setStopping(coast);
       LeftBack.setStopping(coast);
-      LeftMiddle.setStopping(coast);
       RightBack.setStopping(coast);
       RightFront.setStopping(coast);
-      RightMiddle.setStopping(coast);
       break;
     }
     case 3: {
       LeftFront.setStopping(coast);
       LeftBack.setStopping(coast);
-      LeftMiddle.setStopping(coast);
       RightBack.setStopping(coast);
       RightFront.setStopping(coast);
-      RightMiddle.setStopping(coast);
       break;
     }
   }
 }
+
+/*---------------------------------------------------------------------------*/
+/*                                Amazing SPorklift Code                     */
+/*---------------------------------------------------------------------------*/
+
+void sporkliftMovement() {
+  if(Controller1.ButtonUp.pressing()){
+    Sporklift.setVelocity(50,percent);
+    Sporklift.spin(forward);
+  }
+  else if(Controller1.ButtonDown.pressing()){
+    Sporklift.setVelocity(50, percent);
+    Sporklift.spin(reverse);
+  }
+  else{
+    Sporklift.setStopping(hold);
+    Sporklift.stop();
+  }
+}
+
 /*---------------------------------------------------------------------------*/
 /*                              User Control Task                            */
 /*  This task is used to control your robot during the user control phase of */
@@ -382,6 +352,7 @@ void usercontrol(void) {
     simpleDrive();
     armLift();
     clampMovement();
+    sporkliftMovement();
     platformMode();
     if(Controller1.ButtonLeft.pressing() && Controller1.ButtonRight.pressing()){
       RightLift.stop(hold);
