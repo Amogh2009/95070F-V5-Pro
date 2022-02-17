@@ -167,11 +167,11 @@ void armLift(){
 
 void clampMovement() {
   if(Controller1.ButtonR2.pressing()){
-    Clamp.setVelocity(100,percent);
+    Clamp.setVelocity(50,percent);
     Clamp.spin(forward);
   }
   else if(Controller1.ButtonR1.pressing()){
-    Clamp.setVelocity(100, percent);
+    Clamp.setVelocity(50, percent);
     Clamp.spin(reverse);
   }
   else{
