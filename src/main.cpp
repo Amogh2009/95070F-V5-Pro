@@ -313,7 +313,7 @@ void autonomous(void) {
       LeftBack.setVelocity(200, rpm);
       RightFront.setVelocity(200, rpm);
       RightBack.setVelocity(200, rpm);
-      Sporklift.spinFor(reverse, 90, degrees);
+      Sporklift.spinFor(reverse, 110, degrees, true);
 
       LeftFront.spin(reverse);
       LeftBack.spin(reverse);
