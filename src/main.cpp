@@ -306,6 +306,37 @@ void autonomous(void) {
       break; 
     }
     case 2: {
+      int x = 10;
+
+      Sporklift.setVelocity(100, percent);
+      LeftFront.setVelocity(200, rpm);
+      LeftBack.setVelocity(200, rpm);
+      RightFront.setVelocity(200, rpm);
+      RightBack.setVelocity(200, rpm);
+      Sporklift.spinFor(reverse, 90, degrees);
+
+      LeftFront.spin(reverse);
+      LeftBack.spin(reverse);
+      RightFront.spin(reverse);
+      RightBack.spin(reverse);
+      while(LeftFront.position(degrees)< -x){
+        wait(10, msec);
+      }
+
+      Sporklift.spinFor(forward, 45, degrees);
+
+      LeftFront.spinFor(forward, x, degrees, false);
+      LeftBack.spinFor(forward, x, degrees, false);
+      RightFront.spinFor(forward, x, degrees, false);
+      RightBack.spinFor(forward, x, degrees, false);
+
+      LeftFront.stop();
+      LeftBack.stop();
+      RightFront.stop();
+      RightBack.stop();
+
+
+
       LeftFront.setStopping(coast);
       LeftBack.setStopping(coast);
       RightBack.setStopping(coast);
