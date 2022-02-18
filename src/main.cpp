@@ -167,11 +167,11 @@ void armLift(){
 
 void clampMovement() {
   if(Controller1.ButtonR2.pressing()){
-    Clamp.setVelocity(50,percent);
+    Clamp.setVelocity(100,percent);
     Clamp.spin(forward);
   }
   else if(Controller1.ButtonR1.pressing()){
-    Clamp.setVelocity(50, percent);
+    Clamp.setVelocity(100, percent);
     Clamp.spin(reverse);
   }
   else{
@@ -282,7 +282,7 @@ void autonomous(void) {
       RightFront.setVelocity(200, rpm);
       RightBack.setVelocity(200, rpm);
       LeftFront.setPosition(0, degrees);
-      Clamp.setVelocity(200, rpm); //BEN TEST EDIT - ADDED
+      Clamp.setVelocity(200, rpm);
       LeftFront.spin(forward);
       LeftBack.spin(forward);
       RightFront.spin(forward);
@@ -294,9 +294,9 @@ void autonomous(void) {
       LeftBack.stop();
       RightFront.stop();
       RightBack.stop();
-      Clamp.spinFor(forward, 140, degrees); // TEST EDIT - CHANGED 130 to 140
+      Clamp.spinFor(forward, 140, degrees);
 
-      LeftFront.setVelocity(100, rpm);   // please write the purpose of this 2 lines
+      LeftFront.setVelocity(100, rpm);
       LeftBack.setVelocity(100, rpm);
 
       LeftFront.spinFor(reverse, x, degrees, false);
@@ -327,11 +327,11 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 
 void sporkliftMovement() {
-  if(Controller1.ButtonUp.pressing()){
+  if(Controller1.ButtonDown.pressing()){
     Sporklift.setVelocity(100,percent);
     Sporklift.spin(forward);
   }
-  else if(Controller1.ButtonDown.pressing()){
+  else if(Controller1.ButtonUp.pressing()){
     Sporklift.setVelocity(100, percent);
     Sporklift.spin(reverse);
   }
