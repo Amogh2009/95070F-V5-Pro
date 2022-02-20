@@ -299,7 +299,7 @@ void autonomous(void) {
       RightBack.setVelocity(200, rpm);
       LeftFront.setPosition(0, degrees);
       Clamp.setVelocity(200, rpm);
-      //Clamp.spinFor(reverse, 45, degrees, false);
+      Clamp.spinFor(forward, -45, degrees, false);
       LeftFront.spin(forward);
       LeftBack.spin(forward);
       RightFront.spin(forward);
@@ -316,15 +316,15 @@ void autonomous(void) {
       //LeftFront.setVelocity(100, rpm);
       //LeftBack.setVelocity(100, rpm);
 
-      LeftFront.spinFor(reverse, x, degrees, false);
-      LeftBack.spinFor(reverse, x, degrees, false);
-      RightFront.spinFor(reverse, x, degrees, false);
-      RightBack.spinFor(reverse, x, degrees, false);
+      LeftFront.spinFor(forward, -x, degrees, false);
+      LeftBack.spinFor(forward, -x, degrees, false);
+      RightFront.spinFor(forward, -x, degrees, false);
+      RightBack.spinFor(forward, -x, degrees, false);
       break; 
     }
     case 2: {
       Clamp.spinFor(forward, 100, degrees, true);
-      Clamp.spinFor(reverse, 100, degrees, true);
+      Clamp.spinFor(forward, -100, degrees, true);
       break;
     }
     case 3: {
@@ -365,10 +365,10 @@ void autonomous(void) {
       //LeftFront.setVelocity(100, rpm);
       //LeftBack.setVelocity(100, rpm);
 
-      LeftFront.spinFor(reverse, x+150, degrees, false);
-      LeftBack.spinFor(reverse, x+150, degrees, false);
-      RightFront.spinFor(reverse, x+150, degrees, false);
-      RightBack.spinFor(reverse, x+150, degrees, false);
+      LeftFront.spinFor(reverse, -x+150, degrees, false);
+      LeftBack.spinFor(reverse, -x+150, degrees, false);
+      RightFront.spinFor(reverse, -x+150, degrees, false);
+      RightBack.spinFor(reverse, -x+150, degrees, false);
 
       LeftFront.setVelocity(200, rpm);
       LeftBack.setVelocity(200, rpm);
@@ -382,12 +382,12 @@ void autonomous(void) {
 
       Sporklift.spinFor(forward, 100, degrees, true);
 
-      LeftFront.spinFor(reverse, z, degrees, false);
-      LeftBack.spinFor(reverse, z, degrees, false);
-      RightFront.spinFor(reverse, z, degrees, false);
-      RightBack.spinFor(reverse, z, degrees, true);
+      LeftFront.spinFor(forward, -z, degrees, false);
+      LeftBack.spinFor(forward, -z, degrees, false);
+      RightFront.spinFor(forward, -z, degrees, false);
+      RightBack.spinFor(forward, -z, degrees, true);
 
-      Sporklift.spinFor(reverse, 100, degrees, true);
+      Sporklift.spinFor(forward, -100, degrees, true);
 
       LeftFront.spinFor(forward, z, degrees, false);
       LeftFront.spinFor(forward, z, degrees, false);
