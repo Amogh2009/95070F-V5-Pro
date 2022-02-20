@@ -1,3 +1,33 @@
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         3               
+// LeftBack             motor         14              
+// RightFront           motor         4               
+// RightBack            motor         10              
+// RightLift            motor         15              
+// Clamp                motor         12              
+// Inertial             inertial      1               
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         7               
+// Clamp2               motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         3               
+// LeftBack             motor         14              
+// RightFront           motor         4               
+// RightBack            motor         10              
+// RightLift            motor         15              
+// Clamp                motor         12              
+// Inertial             inertial      1               
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         7               
+// Clamp2               motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
 #include "vex.h"
 
 // ---- START VEXCODE CONFIGURED DEVICES ----
@@ -240,8 +270,8 @@ void turnClockwise(double amount){
 
 
 int selected = 0;
-std::string autons[5] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right", "Right 2 Neutral"};
-int size = 5;
+std::string autons[6] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right", "Right 2 Neutral", "Skills"};
+int size = 6;
 
 void autonSelector(){
   Controller1.Screen.clearScreen();
@@ -311,20 +341,34 @@ void autonomous(void) {
       LeftBack.stop();
       RightFront.stop();
       RightBack.stop();
-      Clamp.spinFor(forward, 140, degrees);
+
+      Clamp.setVelocity(200, rpm);
+
+      Clamp.setPosition(0, degrees);
+      Clamp.spin(forward);
+      while(Clamp.position(degrees) < 40){
+        wait(10, msec);
+      }
+
+      Clamp.stop();
 
       //LeftFront.setVelocity(100, rpm);
       //LeftBack.setVelocity(100, rpm);
 
-      LeftFront.spinFor(forward, -x, degrees, false);
-      LeftBack.spinFor(forward, -x, degrees, false);
-      RightFront.spinFor(forward, -x, degrees, false);
-      RightBack.spinFor(forward, -x, degrees, false);
+      LeftFront.setVelocity(200, rpm);
+      LeftBack.setVelocity(200, rpm);
+      RightFront.setVelocity(200, rpm);
+      RightBack.setVelocity(200, rpm);  
+
+      LeftFront.spinFor(reverse, x, degrees, false);
+      LeftBack.spinFor(reverse, x, degrees, false);
+      RightFront.spinFor(reverse, x, degrees, false);
+      RightBack.spinFor(reverse, x, degrees, false);
       break; 
     }
     case 2: {
-      Clamp.spinFor(forward, 100, degrees, true);
-      Clamp.spinFor(forward, -100, degrees, true);
+      Clamp.spinFor(forward, 40, degrees, true);
+      Clamp.spinFor(forward, -40, degrees, true);
       break;
     }
     case 3: {
@@ -395,6 +439,17 @@ void autonomous(void) {
       LeftFront.spinFor(forward, z, degrees, false);
 
       break;
+    }
+    case 5: {
+      //SKILLS
+      Clamp.spinFor(forward, 40, degrees, true);
+      Clamp.spinFor(forward, -40, degrees, true);
+
+      /*
+      Drivetrain.spinLeft();
+      Drivetrain.moveForward();
+      Clamp.down();
+      */
     }
   }
 }
