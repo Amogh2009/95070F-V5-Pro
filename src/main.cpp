@@ -299,6 +299,7 @@ void autonomous(void) {
       RightBack.setVelocity(200, rpm);
       LeftFront.setPosition(0, degrees);
       Clamp.setVelocity(200, rpm);
+      //Clamp.spinFor(reverse, 45, degrees, false);
       LeftFront.spin(forward);
       LeftBack.spin(forward);
       RightFront.spin(forward);
