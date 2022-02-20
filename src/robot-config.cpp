@@ -18,7 +18,7 @@ inertial Inertial = inertial(PORT1);
 controller Controller1 = controller(primary);
 digital_out OldbackPiston = digital_out(Brain.ThreeWirePort.D);
 motor Sporklift = motor(PORT7, ratio36_1, false);
-motor Clamp2 = motor(PORT9, ratio18_1, false);
+motor Clamp2 = motor(PORT16, ratio18_1, false);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable

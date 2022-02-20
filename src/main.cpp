@@ -13,7 +13,7 @@
 // Controller1          controller                    
 // OldbackPiston        digital_out   D               
 // Sporklift            motor         7               
-// Clamp2               motor         9               
+// Clamp2               motor         16              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 using namespace vex;
 // A global instance of competition
@@ -335,7 +335,9 @@ void autonomous(void) {
     }
     case 4: {
       int x = 980;
-      int y = 0;
+      int y = 200;
+      int z = 1269;
+
       LeftFront.setStopping(coast);
       LeftBack.setStopping(coast);
       RightBack.setStopping(coast);
@@ -362,12 +364,36 @@ void autonomous(void) {
       //LeftFront.setVelocity(100, rpm);
       //LeftBack.setVelocity(100, rpm);
 
-      LeftFront.spinFor(reverse, x, degrees, false);
-      LeftBack.spinFor(reverse, x, degrees, false);
-      RightFront.spinFor(reverse, x, degrees, false);
-      RightBack.spinFor(reverse, x, degrees, false);
+      LeftFront.spinFor(reverse, x+150, degrees, false);
+      LeftBack.spinFor(reverse, x+150, degrees, false);
+      RightFront.spinFor(reverse, x+150, degrees, false);
+      RightBack.spinFor(reverse, x+150, degrees, false);
 
+      LeftFront.setVelocity(200, rpm);
+      LeftBack.setVelocity(200, rpm);
+      RightFront.setVelocity(200, rpm);
+      RightBack.setVelocity(200, rpm);
 
+      LeftFront.spinFor(forward, y, degrees, false);
+      LeftBack.spinFor(forward, y, degrees, false);
+      RightFront.spinFor(reverse, y, degrees, false);
+      LeftFront.spinFor(reverse, y, degrees, true);
+
+      Sporklift.spinFor(forward, 100, degrees, true);
+
+      LeftFront.spinFor(reverse, z, degrees, false);
+      LeftBack.spinFor(reverse, z, degrees, false);
+      RightFront.spinFor(reverse, z, degrees, false);
+      RightBack.spinFor(reverse, z, degrees, true);
+
+      Sporklift.spinFor(reverse, 100, degrees, true);
+
+      LeftFront.spinFor(forward, z, degrees, false);
+      LeftFront.spinFor(forward, z, degrees, false);
+      LeftFront.spinFor(forward, z, degrees, false);
+      LeftFront.spinFor(forward, z, degrees, false);
+
+      break;
     }
   }
 }
