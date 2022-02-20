@@ -13,6 +13,7 @@
 // Controller1          controller                    
 // OldbackPiston        digital_out   D               
 // Sporklift            motor         7               
+// Clamp2               motor         9               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 using namespace vex;
 // A global instance of competition
@@ -167,16 +168,31 @@ void armLift(){
 
 void clampMovement() {
   if(Controller1.ButtonR2.pressing()){
-    Clamp.setVelocity(100,percent);
+    Clamp.setVelocity(200,percent);
     Clamp.spin(forward);
   }
   else if(Controller1.ButtonR1.pressing()){
-    Clamp.setVelocity(100, percent);
+    Clamp.setVelocity(200, percent);
     Clamp.spin(reverse);
   }
   else{
     Clamp.setStopping(hold);
     Clamp.stop();
+  }
+}
+
+void clamp2Movement() {
+  if(Controller1.ButtonR2.pressing()){
+    Clamp2.setVelocity(200,percent);
+    Clamp2.spin(forward);
+  }
+  else if(Controller1.ButtonR1.pressing()){
+    Clamp2.setVelocity(200,percent);
+    Clamp2.spin(reverse);
+  }
+  else{
+    Clamp2.setStopping(hold);
+    Clamp2.stop();
   }
 }
 
@@ -224,8 +240,8 @@ void turnClockwise(double amount){
 
 
 int selected = 0;
-std::string autons[4] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right"};
-int size = 4;
+std::string autons[5] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right", "Right 2 Neutral"};
+int size = 5;
 
 void autonSelector(){
   Controller1.Screen.clearScreen();
@@ -316,6 +332,42 @@ void autonomous(void) {
       RightBack.setStopping(coast);
       RightFront.setStopping(coast);
       break;
+    }
+    case 4: {
+      int x = 980;
+      int y = 0;
+      LeftFront.setStopping(coast);
+      LeftBack.setStopping(coast);
+      RightBack.setStopping(coast);
+      RightFront.setStopping(coast);
+      LeftFront.setVelocity(200, rpm);
+      LeftBack.setVelocity(200, rpm);
+      RightFront.setVelocity(200, rpm);
+      RightBack.setVelocity(200, rpm);
+      LeftFront.setPosition(0, degrees);
+      Clamp.setVelocity(200, rpm);
+      LeftFront.spin(forward);
+      LeftBack.spin(forward);
+      RightFront.spin(forward);
+      RightBack.spin(forward);
+      while(LeftFront.position(degrees)< x){
+        wait(10, msec);
+      }
+      LeftFront.stop();
+      LeftBack.stop();
+      RightFront.stop();
+      RightBack.stop();
+      Clamp.spinFor(forward, 140, degrees);
+
+      //LeftFront.setVelocity(100, rpm);
+      //LeftBack.setVelocity(100, rpm);
+
+      LeftFront.spinFor(reverse, x, degrees, false);
+      LeftBack.spinFor(reverse, x, degrees, false);
+      RightFront.spinFor(reverse, x, degrees, false);
+      RightBack.spinFor(reverse, x, degrees, false);
+
+
     }
   }
 }
