@@ -28,6 +28,21 @@
 // Sporklift            motor         7               
 // Clamp2               motor         16              
 // ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         3               
+// LeftBack             motor         14              
+// RightFront           motor         4               
+// RightBack            motor         10              
+// RightLift            motor         15              
+// Clamp                motor         12              
+// Inertial             inertial      1               
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         7               
+// Clamp2               motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
 #include "vex.h"
 
 // ---- START VEXCODE CONFIGURED DEVICES ----
@@ -268,6 +283,61 @@ void turnClockwise(double amount){
   wait(0.5, sec);
 }
 
+//BENS HELPER FUNCTIONS------------------------------------------------------------
+
+void blank() {}
+
+void DriveForward(int amt, int turning = 0, bool smooth = true, int vel = 200) {
+  
+  if (turning > 0) {
+    RightFront.setVelocity(vel - 2 * turning, rpm);
+    RightBack.setVelocity(vel - 2 * turning, rpm);
+    LeftFront.setVelocity(vel, rpm);
+    LeftBack.setVelocity(vel, rpm);
+  } else if (turning < 0) {
+    LeftFront.setVelocity(vel - 2 * turning, rpm);
+    LeftBack.setVelocity(vel - 2 * turning, rpm);
+    RightFront.setVelocity(vel, rpm);
+    RightBack.setVelocity(vel, rpm);
+  }
+  
+  if (smooth) {
+    LeftFront.setPosition(0, degrees);
+
+    LeftFront.spin(forward);
+    LeftBack.spin(forward);
+    RightFront.spin(forward);
+    RightBack.spin(forward);
+    if (amt > 0) {
+      while (LeftFront.position(degrees) < turning + amt) {
+        wait(10, msec);
+      }
+    } else if (amt < 0) {
+      while (LeftFront.position(degrees) > - turning - amt) {
+        wait(10, msec);
+      }
+    }
+    LeftFront.stop();
+    LeftBack.stop();
+    RightFront.stop();
+    RightBack.stop();
+  } else {
+    LeftFront.spinFor(forward, amt + turning, degrees, false);
+    LeftBack.spinFor(forward, amt + turning, degrees, false);
+    RightFront.spinFor(forward, amt - turning, degrees, false);
+    RightBack.spinFor(forward, amt - turning, degrees, true);
+  }
+}
+
+void ClampDown(int rev = false) {
+  Clamp.spinFor(forward, rev ? -40: 40, degrees);
+}
+
+void ForkliftDown(int rev = false) {
+  Sporklift.spinFor(forward, rev ? -100: 100, degrees);
+}
+
+//----------------------------------------------------------------------------------
 
 int selected = 0;
 std::string autons[6] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right", "Right 2 Neutral", "Skills"};
@@ -330,6 +400,7 @@ void autonomous(void) {
       LeftFront.setPosition(0, degrees);
       Clamp.setVelocity(200, rpm);
       Clamp.spinFor(forward, -45, degrees, false);
+      RightLift.spinFor(reverse, 50, degrees, false);
       LeftFront.spin(forward);
       LeftBack.spin(forward);
       RightFront.spin(forward);
@@ -341,6 +412,8 @@ void autonomous(void) {
       LeftBack.stop();
       RightFront.stop();
       RightBack.stop();
+
+      wait(100, msec);
 
       Clamp.setVelocity(200, rpm);
 
@@ -380,8 +453,8 @@ void autonomous(void) {
     }
     case 4: {
       int x = 980;
-      int y = 200;
-      int z = 1269;
+      int y = 500;
+      int z = 1230;
 
       LeftFront.setStopping(coast);
       LeftBack.setStopping(coast);
@@ -404,34 +477,33 @@ void autonomous(void) {
       LeftBack.stop();
       RightFront.stop();
       RightBack.stop();
-      Clamp.spinFor(forward, 140, degrees);
+      Clamp.spinFor(forward, 40, degrees);
 
       //LeftFront.setVelocity(100, rpm);
       //LeftBack.setVelocity(100, rpm);
-
-      LeftFront.spinFor(reverse, -x+150, degrees, false);
-      LeftBack.spinFor(reverse, -x+150, degrees, false);
-      RightFront.spinFor(reverse, -x+150, degrees, false);
-      RightBack.spinFor(reverse, -x+150, degrees, false);
 
       LeftFront.setVelocity(200, rpm);
       LeftBack.setVelocity(200, rpm);
       RightFront.setVelocity(200, rpm);
       RightBack.setVelocity(200, rpm);
 
+      Controller1.rumble("...");
+
       LeftFront.spinFor(forward, y, degrees, false);
       LeftBack.spinFor(forward, y, degrees, false);
       RightFront.spinFor(reverse, y, degrees, false);
-      LeftFront.spinFor(reverse, y, degrees, true);
+      RightBack.spinFor(reverse, y, degrees, true);
 
-      Sporklift.spinFor(forward, 100, degrees, true);
+      Controller1.rumble("------------------");
+
+      Sporklift.spinFor(forward, 500, degrees, true);
 
       LeftFront.spinFor(forward, -z, degrees, false);
       LeftBack.spinFor(forward, -z, degrees, false);
       RightFront.spinFor(forward, -z, degrees, false);
       RightBack.spinFor(forward, -z, degrees, true);
 
-      Sporklift.spinFor(forward, -100, degrees, true);
+      Sporklift.spinFor(forward, -500, degrees, true);
 
       LeftFront.spinFor(forward, z, degrees, false);
       LeftFront.spinFor(forward, z, degrees, false);
@@ -442,14 +514,63 @@ void autonomous(void) {
     }
     case 5: {
       //SKILLS
-      Clamp.spinFor(forward, 40, degrees, true);
-      Clamp.spinFor(forward, -40, degrees, true);
-
+      //EXTREMELY ROUGH. NO WAY IN HECK THIS IS GONNA WORK.
       /*
-      Drivetrain.spinLeft();
-      Drivetrain.moveForward();
-      Clamp.down();
+        DO
+        NOT
+        USE
+        THIS
+        UNTIL
+        FURTHER
+        EXPERIMENTATION
       */
+
+      DriveForward(980);
+      ClampDown();
+      ForkliftDown();
+      wait(1, sec);
+      DriveForward(-600, -200, false);
+      wait(1, sec);
+      ForkliftDown(false);
+      wait(1, sec);
+      DriveForward(1000, -300, false);
+
+      RightLift.setVelocity(200, rpm);
+      RightLift.spinFor(reverse, 100, degrees);
+      DriveForward(50);
+      RightLift.spinFor(forward, 20, degrees);
+      ClampDown(true);
+      ForkliftDown(true);
+      DriveForward(-50);
+      RightLift.spinFor(forward, 80, degrees);
+
+      DriveForward(-100);
+      DriveForward(100);
+      DriveForward(-400, -30);
+      DriveForward(400);
+      ClampDown();
+      DriveForward(-400, 30);
+      DriveForward(400);
+
+      RightLift.setVelocity(200, rpm);
+      RightLift.spinFor(reverse, 100, degrees);
+      DriveForward(50);
+      ClampDown(true);
+      RightLift.spinFor(forward, 100, degrees);
+      DriveForward(-50);
+
+      DriveForward(0, 70);
+      DriveForward(100, 30);
+      ClampDown();
+      DriveForward(-100, -30);
+      DriveForward(0, -70);
+
+      RightLift.setVelocity(200, rpm);
+      RightLift.spinFor(reverse, 100, degrees);
+      DriveForward(50);
+      ClampDown(true);
+      RightLift.spinFor(forward, 100, degrees);
+      DriveForward(-50);
     }
   }
 }
