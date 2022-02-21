@@ -340,8 +340,8 @@ void ForkliftDown(int rev = false) {
 //----------------------------------------------------------------------------------
 
 int selected = 0;
-std::string autons[6] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right", "Right 2 Neutral", "Skills"};
-int size = 6;
+std::string autons[7] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right", "Right 2 Neutral", "Skills", "Auton with 95070G"};
+int size = 7;
 
 void autonSelector(){
   Controller1.Screen.clearScreen();
@@ -571,6 +571,54 @@ void autonomous(void) {
       ClampDown(true);
       RightLift.spinFor(forward, 100, degrees);
       DriveForward(-50);
+    }
+    case 6: {
+     int x = 980;
+      LeftFront.setStopping(coast);
+      LeftBack.setStopping(coast);
+      RightBack.setStopping(coast);
+      RightFront.setStopping(coast);
+      LeftFront.setVelocity(200, rpm);
+      LeftBack.setVelocity(200, rpm);
+      RightFront.setVelocity(200, rpm);
+      RightBack.setVelocity(200, rpm);
+      LeftFront.setPosition(0, degrees);
+      Clamp.setVelocity(200, rpm);
+      Clamp.spinFor(forward, -45, degrees, false);
+      RightLift.spinFor(reverse, 50, degrees, false);
+      LeftFront.spin(forward);
+      LeftBack.spin(forward);
+      RightFront.spin(forward);
+      RightBack.spin(forward);
+      while(LeftFront.position(degrees)< x){
+        wait(10, msec);
+      }
+      LeftFront.stop();
+      LeftBack.stop();
+      RightFront.stop();
+      RightBack.stop();
+
+      wait(100, msec);
+
+      Clamp.setVelocity(200, rpm);
+
+      Clamp.setPosition(0, degrees);
+      Clamp.spin(forward);
+      while(Clamp.position(degrees) < 40){
+        wait(10, msec);
+      }
+
+      Clamp.stop();
+
+      LeftFront.setVelocity(200, rpm);
+      LeftBack.setVelocity(200, rpm);
+      RightFront.setVelocity(200, rpm);
+      RightBack.setVelocity(200, rpm);
+
+      LeftFront.spinFor(forward, 250, degrees, false);
+      LeftBack.spinFor(forward, 250, degrees, false);
+      RightFront.spinFor(reverse, 250, degrees, false);
+      RightBack.spinFor(reverse, 250, degrees, false);
     }
   }
 }
