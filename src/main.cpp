@@ -355,8 +355,8 @@ void ForkliftDown(int rev = false) {
 //----------------------------------------------------------------------------------
 
 int selected = 0;
-std::string autons[7] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right", "Right 2 Neutral", "Skills", "Auton with 95070G"};
-int size = 7;
+std::string autons[8] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right", "Right 2 Neutral", "Skills", "Auton with 95070G", "Right 1 Neutral AWP"};
+int size = 8;
 
 void autonSelector(){
   Controller1.Screen.clearScreen();
