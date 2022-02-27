@@ -385,8 +385,8 @@ void ForkliftDown(int rev = false) {
 //----------------------------------------------------------------------------------
 
 int selected = 0;
-std::string autons[7] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right", "Right 2 Neutral", "Skills", "Auton with 95070G"};
-int size = 7;
+std::string autons[8] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right", "Right 2 Neutral", "Skills", "Auton with 95070G", "Right 1 Neutral AWP"};
+int size = 8;
 
 void autonSelector(){
   Controller1.Screen.clearScreen();
@@ -428,12 +428,12 @@ void pre_auton(void) {
 /*  a VEX Competition.                                                       */
 /*---------------------------------------------------------------------------*/
 void autonomous(void) {
+  int x = 980; // Degrees for moving forward to the neutral goal
   switch(selected){
     case 0:{
       break;
     }
     case 1:{
-      int x = 980;
       LeftFront.setStopping(coast);
       LeftBack.setStopping(coast);
       RightBack.setStopping(coast);
@@ -497,7 +497,6 @@ void autonomous(void) {
       break;
     }
     case 4: {
-      int x = 980;
       int y = 500;
       int z = 1230;
 
@@ -616,9 +615,9 @@ void autonomous(void) {
       ClampDown(true);
       RightLift.spinFor(forward, 100, degrees);
       DriveForward(-50);
+      break;
     }
     case 6: {
-     int x = 980;
       LeftFront.setStopping(coast);
       LeftBack.setStopping(coast);
       RightBack.setStopping(coast);
@@ -664,6 +663,116 @@ void autonomous(void) {
       LeftBack.spinFor(forward, 250, degrees, false);
       RightFront.spinFor(reverse, 250, degrees, false);
       RightBack.spinFor(reverse, 250, degrees, false);
+      break;
+    }
+    case 7: {
+      LeftFront.setStopping(coast);
+      LeftBack.setStopping(coast);
+      RightBack.setStopping(coast);
+      RightFront.setStopping(coast);
+      LeftFront.setVelocity(200, rpm);
+      LeftBack.setVelocity(200, rpm);
+      RightFront.setVelocity(200, rpm);
+      RightBack.setVelocity(200, rpm);
+      LeftFront.setPosition(0, degrees);
+      Clamp.setVelocity(200, rpm);
+      
+      // setting up for auton
+
+      Clamp.spinFor(forward, -45, degrees, false);
+      RightLift.spinFor(reverse, 50, degrees, false);
+      
+      // spinning forward towards the goal
+      
+      LeftFront.spin(forward);
+      LeftBack.spin(forward);
+      RightFront.spin(forward);
+      RightBack.spin(forward);
+      while(LeftFront.position(degrees)< x){
+        wait(10, msec);
+      }
+      LeftFront.stop();
+      LeftBack.stop();
+      RightFront.stop();
+      RightBack.stop();
+
+      wait(100, msec);
+
+      // clamp down
+      
+      Clamp.setVelocity(200, rpm);
+
+      Clamp.setPosition(0, degrees);
+      Clamp.spin(forward);
+      while(Clamp.position(degrees) < 40){
+        wait(10, msec);
+      }
+
+      Clamp.stop();
+
+      //LeftFront.setVelocity(100, rpm);
+      //LeftBack.setVelocity(100, rpm);
+
+      // moving backwards with the goal
+
+      LeftFront.setVelocity(200, rpm);
+      LeftBack.setVelocity(200, rpm);
+      RightFront.setVelocity(200, rpm);
+      RightBack.setVelocity(200, rpm);  
+
+      LeftFront.spinFor(reverse, x-175, degrees, false);
+      LeftBack.spinFor(reverse, x-175, degrees, false);
+      RightFront.spinFor(reverse, x-175, degrees, false);
+      RightBack.spinFor(reverse, x-175, degrees, false);
+
+      // turning 90°
+      
+      LeftFront.spinFor(reverse, 250, degrees, false);
+      LeftBack.spinFor(reverse, 250, degrees, false);
+      RightFront.spinFor(forward, 250, degrees, false);
+      RightBack.spinFor(forward, 250, degrees, true);
+
+      // moving backwards to place ring in alliance goal
+      
+      LeftFront.spinFor(reverse, 100, degrees, false);
+      LeftBack.spinFor(reverse, 100, degrees, false);
+      RightFront.spinFor(reverse, 100, degrees, false);
+      RightBack.spinFor(reverse, 100, degrees, true);
+
+      // placing ring in alliance goal
+      
+      Sporklift.spinFor(forward, 50, degrees, true);
+
+      // setting up to pickup alliance goal by moving forward
+      
+      LeftFront.spinFor(forward, 135, degrees, false);
+      LeftBack.spinFor(forward, 135, degrees, false);
+      RightFront.spinFor(forward, 135, degrees, false);
+      RightBack.spinFor(forward, 135, degrees, true);
+
+      // 2nd part of setting up to pick up alliance goal; moving forklift down
+      
+      Sporklift.spinFor(forward, 50, degrees, true);
+      
+      // 3rd part of setting up; moving backwards with forklift down
+      
+      LeftFront.spinFor(reverse, 150, degrees, false);
+      LeftBack.spinFor(reverse, 150, degrees, false);
+      RightFront.spinFor(reverse, 150, degrees, false);
+      RightBack.spinFor(reverse, 150, degrees, true);
+
+      // 4th part of getting AWP; forklifting up to pick up goal
+      
+      Sporklift.spinFor(reverse, 100, degrees, true);
+      
+      // moving forward to get the AWP
+      
+      LeftFront.spinFor(forward, 145, degrees, false);
+      LeftBack.spinFor(forward, 145, degrees, false);
+      RightFront.spinFor(forward, 145, degrees, false);
+      RightBack.spinFor(forward, 145, degrees, true);
+      
+      break; 
     }
   }
 }
