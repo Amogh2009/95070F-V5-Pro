@@ -21,6 +21,36 @@
 // RightFront           motor         4               
 // RightBack            motor         10              
 // RightLift            motor         15              
+// Clamp                motor         11              
+// Inertial             inertial      1               
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         7               
+// Clamp2               motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         3               
+// LeftBack             motor         14              
+// RightFront           motor         4               
+// RightBack            motor         10              
+// RightLift            motor         15              
+// Clamp                motor         11              
+// Inertial             inertial      1               
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         7               
+// Clamp2               motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         3               
+// LeftBack             motor         14              
+// RightFront           motor         4               
+// RightBack            motor         10              
+// RightLift            motor         15              
 // Clamp                motor         12              
 // Inertial             inertial      1               
 // Controller1          controller                    
