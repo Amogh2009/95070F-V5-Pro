@@ -51,6 +51,21 @@
 // RightFront           motor         4               
 // RightBack            motor         10              
 // RightLift            motor         15              
+// Clamp                motor         11              
+// Inertial             inertial      1               
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         7               
+// Clamp2               motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         3               
+// LeftBack             motor         14              
+// RightFront           motor         4               
+// RightBack            motor         10              
+// RightLift            motor         15              
 // Clamp                motor         12              
 // Inertial             inertial      1               
 // Controller1          controller                    
@@ -234,10 +249,10 @@ void simpleDrive(){
   double forwardAmount = Controller1.Axis3.position();
   double turnAmount = Controller1.Axis1.position(); //Axis 4 for unified joystick
   
-  RightFront.spin(forward, (forwardAmount-turnAmount)*2, percent);
-  RightBack.spin(forward, (forwardAmount-turnAmount)*2, percent);
-  LeftFront.spin(forward, (forwardAmount+turnAmount)*2, percent);
-  LeftBack.spin(forward, (forwardAmount+turnAmount)*2, percent);
+  RightFront.spin(forward, (forwardAmount-turnAmount), percent);
+  RightBack.spin(forward, (forwardAmount-turnAmount), percent);
+  LeftFront.spin(forward, (forwardAmount+turnAmount), percent);
+  LeftBack.spin(forward, (forwardAmount+turnAmount), percent);
 
 }
 //Void that controls the movement of the 4-bar lift
@@ -438,12 +453,12 @@ void autonomous(void) {
       LeftBack.setStopping(coast);
       RightBack.setStopping(coast);
       RightFront.setStopping(coast);
-      LeftFront.setVelocity(200, rpm);
-      LeftBack.setVelocity(200, rpm);
-      RightFront.setVelocity(200, rpm);
-      RightBack.setVelocity(200, rpm);
+      LeftFront.setVelocity(100, percent);
+      LeftBack.setVelocity(100, percent);
+      RightFront.setVelocity(100, percent);
+      RightBack.setVelocity(100, percent);
       LeftFront.setPosition(0, degrees);
-      Clamp.setVelocity(200, rpm);
+      Clamp.setVelocity(100, percent);
       Clamp.spinFor(forward, -45, degrees, false);
       RightLift.spinFor(reverse, 50, degrees, false);
       LeftFront.spin(forward);
@@ -460,7 +475,7 @@ void autonomous(void) {
 
       wait(100, msec);
 
-      Clamp.setVelocity(200, rpm);
+      Clamp.setVelocity(100, percent);
 
       Clamp.setPosition(0, degrees);
       Clamp.spin(forward);
@@ -473,10 +488,10 @@ void autonomous(void) {
       //LeftFront.setVelocity(100, rpm);
       //LeftBack.setVelocity(100, rpm);
 
-      LeftFront.setVelocity(200, rpm);
-      LeftBack.setVelocity(200, rpm);
-      RightFront.setVelocity(200, rpm);
-      RightBack.setVelocity(200, rpm);  
+      LeftFront.setVelocity(100, percent);
+      LeftBack.setVelocity(100, percent);
+      RightFront.setVelocity(100, percent);
+      RightBack.setVelocity(100, percent);  
 
       LeftFront.spinFor(reverse, x, degrees, false);
       LeftBack.spinFor(reverse, x, degrees, false);
@@ -504,12 +519,12 @@ void autonomous(void) {
       LeftBack.setStopping(coast);
       RightBack.setStopping(coast);
       RightFront.setStopping(coast);
-      LeftFront.setVelocity(200, rpm);
-      LeftBack.setVelocity(200, rpm);
-      RightFront.setVelocity(200, rpm);
-      RightBack.setVelocity(200, rpm);
+      LeftFront.setVelocity(100, percent);
+      LeftBack.setVelocity(100, percent);
+      RightFront.setVelocity(100, percent);
+      RightBack.setVelocity(100, percent);
       LeftFront.setPosition(0, degrees);
-      Clamp.setVelocity(200, rpm);
+      Clamp.setVelocity(100, percent);
       LeftFront.spin(forward);
       LeftBack.spin(forward);
       RightFront.spin(forward);
@@ -526,10 +541,10 @@ void autonomous(void) {
       //LeftFront.setVelocity(100, rpm);
       //LeftBack.setVelocity(100, rpm);
 
-      LeftFront.setVelocity(200, rpm);
-      LeftBack.setVelocity(200, rpm);
-      RightFront.setVelocity(200, rpm);
-      RightBack.setVelocity(200, rpm);
+      LeftFront.setVelocity(100, percent);
+      LeftBack.setVelocity(100, percent);
+      RightFront.setVelocity(100, percent);
+      RightBack.setVelocity(100, percent);
 
       Controller1.rumble("...");
 
@@ -579,7 +594,7 @@ void autonomous(void) {
       wait(1, sec);
       DriveForward(1000, -300, false);
 
-      RightLift.setVelocity(200, rpm);
+      RightLift.setVelocity(100, percent);
       RightLift.spinFor(reverse, 100, degrees);
       DriveForward(50);
       RightLift.spinFor(forward, 20, degrees);
@@ -596,7 +611,7 @@ void autonomous(void) {
       DriveForward(-400, 30);
       DriveForward(400);
 
-      RightLift.setVelocity(200, rpm);
+      RightLift.setVelocity(100, percent);
       RightLift.spinFor(reverse, 100, degrees);
       DriveForward(50);
       ClampDown(true);
@@ -609,7 +624,7 @@ void autonomous(void) {
       DriveForward(-100, -30);
       DriveForward(0, -70);
 
-      RightLift.setVelocity(200, rpm);
+      RightLift.setVelocity(100, percent);
       RightLift.spinFor(reverse, 100, degrees);
       DriveForward(50);
       ClampDown(true);
@@ -622,12 +637,12 @@ void autonomous(void) {
       LeftBack.setStopping(coast);
       RightBack.setStopping(coast);
       RightFront.setStopping(coast);
-      LeftFront.setVelocity(200, rpm);
-      LeftBack.setVelocity(200, rpm);
-      RightFront.setVelocity(200, rpm);
-      RightBack.setVelocity(200, rpm);
+      LeftFront.setVelocity(100, percent);
+      LeftBack.setVelocity(100, percent);
+      RightFront.setVelocity(100, percent);
+      RightBack.setVelocity(100, percent);
       LeftFront.setPosition(0, degrees);
-      Clamp.setVelocity(200, rpm);
+      Clamp.setVelocity(100, percent);
       Clamp.spinFor(forward, -45, degrees, false);
       RightLift.spinFor(reverse, 50, degrees, false);
       LeftFront.spin(forward);
@@ -644,7 +659,7 @@ void autonomous(void) {
 
       wait(100, msec);
 
-      Clamp.setVelocity(200, rpm);
+      Clamp.setVelocity(100, percent);
 
       Clamp.setPosition(0, degrees);
       Clamp.spin(forward);
@@ -654,10 +669,10 @@ void autonomous(void) {
 
       Clamp.stop();
 
-      LeftFront.setVelocity(200, rpm);
-      LeftBack.setVelocity(200, rpm);
-      RightFront.setVelocity(200, rpm);
-      RightBack.setVelocity(200, rpm);
+      LeftFront.setVelocity(100, percent);
+      LeftBack.setVelocity(100, percent);
+      RightFront.setVelocity(100, percent);
+      RightBack.setVelocity(100, percent);
 
       LeftFront.spinFor(forward, 250, degrees, false);
       LeftBack.spinFor(forward, 250, degrees, false);
@@ -670,12 +685,12 @@ void autonomous(void) {
       LeftBack.setStopping(coast);
       RightBack.setStopping(coast);
       RightFront.setStopping(coast);
-      LeftFront.setVelocity(200, rpm);
-      LeftBack.setVelocity(200, rpm);
-      RightFront.setVelocity(200, rpm);
-      RightBack.setVelocity(200, rpm);
+      LeftFront.setVelocity(100, percent);
+      LeftBack.setVelocity(100, percent);
+      RightFront.setVelocity(100, percent);
+      RightBack.setVelocity(100, percent);
       LeftFront.setPosition(0, degrees);
-      Clamp.setVelocity(200, rpm);
+      Clamp.setVelocity(100, percent);
       
       // setting up for auton
 
@@ -700,30 +715,32 @@ void autonomous(void) {
 
       // clamp down
       
-      Clamp.setVelocity(200, rpm);
+      Clamp.setVelocity(100, percent);
 
-      Clamp.setPosition(0, degrees);
+      /*Clamp.setPosition(0, degrees);
       Clamp.spin(forward);
       while(Clamp.position(degrees) < 40){
         wait(10, msec);
       }
 
-      Clamp.stop();
+      Clamp.stop();*/
+
+      Clamp.spinFor(forward, 45, degrees, false);
 
       //LeftFront.setVelocity(100, rpm);
       //LeftBack.setVelocity(100, rpm);
 
       // moving backwards with the goal
 
-      LeftFront.setVelocity(200, rpm);
-      LeftBack.setVelocity(200, rpm);
-      RightFront.setVelocity(200, rpm);
-      RightBack.setVelocity(200, rpm);  
+      LeftFront.setVelocity(100, percent);
+      LeftBack.setVelocity(100, percent);
+      RightFront.setVelocity(100, percent);
+      RightBack.setVelocity(100, percent);  
 
-      LeftFront.spinFor(reverse, x-175, degrees, false);
-      LeftBack.spinFor(reverse, x-175, degrees, false);
-      RightFront.spinFor(reverse, x-175, degrees, false);
-      RightBack.spinFor(reverse, x-175, degrees, false);
+      LeftFront.spinFor(reverse, x, degrees, false);
+      LeftBack.spinFor(reverse, x, degrees, false);
+      RightFront.spinFor(reverse, x, degrees, false);
+      RightBack.spinFor(reverse, x, degrees, true);
 
       // turning 90°
       
