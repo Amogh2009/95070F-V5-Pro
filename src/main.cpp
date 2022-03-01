@@ -415,8 +415,8 @@ void ForkliftDown(int rev = false) {
 //----------------------------------------------------------------------------------
 
 int selected = 0;
-std::string autons[8] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right", "Right 2 Neutral", "Skills", "Auton with 95070G", "Right 1 Neutral AWP"};
-int size = 8;
+std::string autons[9] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right", "Right 2 Neutral", "Skills", "Auton with 95070G", "Right 1 Neutral AWP", "Right Mid Neutral"};
+int size = 9;
 
 void autonSelector(){
   Controller1.Screen.clearScreen();
@@ -805,6 +805,59 @@ void autonomous(void) {
       RightBack.spinFor(forward, 145, degrees, true);
       
       break; 
+    }
+    case 8: {
+      
+
+      LeftFront.setStopping(coast);
+      LeftBack.setStopping(coast);
+      RightBack.setStopping(coast);
+      RightFront.setStopping(coast);
+      LeftFront.setVelocity(100, percent);
+      LeftBack.setVelocity(100, percent);
+      RightFront.setVelocity(100, percent);
+      RightBack.setVelocity(100, percent);
+      LeftFront.setPosition(0, degrees);
+      Clamp.setVelocity(100, percent);
+      Clamp.spinFor(forward, -45, degrees, false);
+      RightLift.spinFor(reverse, 50, degrees, false);
+      LeftFront.spin(forward);
+      LeftBack.spin(forward);
+      RightFront.spin(forward);
+      RightBack.spin(forward);
+      while(LeftFront.position(degrees)< x + 200){
+        wait(10, msec);
+      }
+      LeftFront.stop();
+      LeftBack.stop();
+      RightFront.stop();
+      RightBack.stop();
+
+      wait(100, msec);
+
+      Clamp.setVelocity(100, percent);
+
+      Clamp.setPosition(0, degrees);
+      Clamp.spin(forward);
+      while(Clamp.position(degrees) < 40){
+        wait(10, msec);
+      }
+
+      Clamp.stop();
+
+      //LeftFront.setVelocity(100, rpm);
+      //LeftBack.setVelocity(100, rpm);
+
+      LeftFront.setVelocity(100, percent);
+      LeftBack.setVelocity(100, percent);
+      RightFront.setVelocity(100, percent);
+      RightBack.setVelocity(100, percent);  
+
+      LeftFront.spinFor(reverse, x + 200, degrees, false);
+      LeftBack.spinFor(reverse, x + 200, degrees, false);
+      RightFront.spinFor(reverse, x + 200, degrees, false);
+      RightBack.spinFor(reverse, x + 200, degrees, false);
+      break;
     }
   }
 }
