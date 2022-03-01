@@ -18,6 +18,36 @@
 // [Name]               [Type]        [Port(s)]
 // LeftFront            motor         3               
 // LeftBack             motor         14              
+// RightFront           motor         5               
+// RightBack            motor         10              
+// RightLift            motor         15              
+// Clamp                motor         11              
+// Inertial             inertial      1               
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         7               
+// Clamp2               motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         3               
+// LeftBack             motor         14              
+// RightFront           motor         5               
+// RightBack            motor         10              
+// RightLift            motor         15              
+// Clamp                motor         11              
+// Inertial             inertial      1               
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         7               
+// Clamp2               motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         3               
+// LeftBack             motor         14              
 // RightFront           motor         4               
 // RightBack            motor         10              
 // RightLift            motor         15              
@@ -825,7 +855,7 @@ void autonomous(void) {
       LeftBack.spin(forward);
       RightFront.spin(forward);
       RightBack.spin(forward);
-      while(LeftFront.position(degrees)< x + 200){
+      while(LeftFront.position(degrees)< x + 390){
         wait(10, msec);
       }
       LeftFront.stop();
@@ -853,10 +883,10 @@ void autonomous(void) {
       RightFront.setVelocity(100, percent);
       RightBack.setVelocity(100, percent);  
 
-      LeftFront.spinFor(reverse, x + 200, degrees, false);
-      LeftBack.spinFor(reverse, x + 200, degrees, false);
-      RightFront.spinFor(reverse, x + 200, degrees, false);
-      RightBack.spinFor(reverse, x + 200, degrees, false);
+      LeftFront.spinFor(reverse, x + 230, degrees, false);
+      LeftBack.spinFor(reverse, x + 230, degrees, false);
+      RightFront.spinFor(reverse, x + 230, degrees, false);
+      RightBack.spinFor(reverse, x + 230, degrees, false);
       break;
     }
   }
