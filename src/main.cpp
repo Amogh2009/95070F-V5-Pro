@@ -619,15 +619,6 @@ void autonomous(void) {
     case 5: {
       //SKILLS
       //EXTREMELY ROUGH. NO WAY IN HECK THIS IS GONNA WORK.
-      /*
-        DO
-        NOT
-        USE
-        THIS
-        UNTIL
-        FURTHER
-        EXPERIMENTATION
-      */
 
       DriveForward(980);
       ClampDown();
