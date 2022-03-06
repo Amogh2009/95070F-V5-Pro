@@ -48,6 +48,36 @@
 // [Name]               [Type]        [Port(s)]
 // LeftFront            motor         3               
 // LeftBack             motor         14              
+// RightFront           motor         5               
+// RightBack            motor         10              
+// RightLift            motor         15              
+// Clamp                motor         11              
+// Inertial             inertial      1               
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         7               
+// Clamp2               motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         3               
+// LeftBack             motor         14              
+// RightFront           motor         5               
+// RightBack            motor         10              
+// RightLift            motor         15              
+// Clamp                motor         11              
+// Inertial             inertial      1               
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         7               
+// Clamp2               motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         3               
+// LeftBack             motor         14              
 // RightFront           motor         4               
 // RightBack            motor         10              
 // RightLift            motor         15              
@@ -246,21 +276,22 @@ void PID (double kP, double kI, double kD, double maxIntegral, double tolerance,
 }
 //Void that controls the drivetrain based on inputs from the joysticks
 
-int speedFactor = 2;
+int speedFactor = 1;
 
 void platformMode() {
   if(Controller1.ButtonX.pressing()){
+    speedFactor = 3;
+    LeftFront.setStopping(hold);
+    LeftBack.setStopping(hold);
+    RightFront.setStopping(hold);
+    RightBack.setStopping(hold);
+  }
+  else {
     speedFactor = 1;
-    LeftBack.stop(hold);
-    LeftFront.stop(hold);
-    RightBack.stop(hold);
-    RightFront.stop(hold);
-  } else {
-    speedFactor = 2;
-    LeftBack.stop(coast);
-    LeftFront.stop(coast);
-    RightBack.stop(coast);
-    RightFront.stop(coast);
+    LeftFront.setStopping(coast);
+    LeftBack.setStopping(coast);
+    RightFront.setStopping(coast);
+    RightBack.setStopping(coast);
   }
 }
 
@@ -301,11 +332,10 @@ void simpleDrive(){
   double forwardAmount = Controller1.Axis3.position();
   double turnAmount = Controller1.Axis1.position(); //Axis 4 for unified joystick
   
-  RightFront.spin(forward, (forwardAmount-turnAmount) * speedFactor / 2, percent);
-  RightBack.spin(forward, (forwardAmount-turnAmount) * speedFactor / 2, percent);
-  LeftFront.spin(forward, (forwardAmount+turnAmount) * speedFactor / 2, percent);
-  LeftBack.spin(forward, (forwardAmount+turnAmount) * speedFactor / 2, percent);
-
+  RightFront.spin(forward, (forwardAmount-turnAmount) / speedFactor, percent);
+  RightBack.spin(forward, (forwardAmount-turnAmount) / speedFactor, percent);
+  LeftFront.spin(forward, (forwardAmount+turnAmount) / speedFactor, percent);
+  LeftBack.spin(forward, (forwardAmount+turnAmount) / speedFactor, percent);
 }
 //Void that controls the movement of the 4-bar lift
 void armLift(){
