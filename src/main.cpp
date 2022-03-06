@@ -246,14 +246,21 @@ void PID (double kP, double kI, double kD, double maxIntegral, double tolerance,
 }
 //Void that controls the drivetrain based on inputs from the joysticks
 
-int speedFactor = 1;
+int speedFactor = 2;
 
 void platformMode() {
   if(Controller1.ButtonX.pressing()){
-    speedFactor = 2;
-  }
-  else if(Controller1.ButtonB.pressing()){
     speedFactor = 1;
+    LeftBack.stop(hold);
+    LeftFront.stop(hold);
+    RightBack.stop(hold);
+    RightFront.stop(hold);
+  } else {
+    speedFactor = 2;
+    LeftBack.stop(coast);
+    LeftFront.stop(coast);
+    RightBack.stop(coast);
+    RightFront.stop(coast);
   }
 }
 
@@ -294,10 +301,10 @@ void simpleDrive(){
   double forwardAmount = Controller1.Axis3.position();
   double turnAmount = Controller1.Axis1.position(); //Axis 4 for unified joystick
   
-  RightFront.spin(forward, (forwardAmount-turnAmount), percent);
-  RightBack.spin(forward, (forwardAmount-turnAmount), percent);
-  LeftFront.spin(forward, (forwardAmount+turnAmount), percent);
-  LeftBack.spin(forward, (forwardAmount+turnAmount), percent);
+  RightFront.spin(forward, (forwardAmount-turnAmount) * speedFactor / 2, percent);
+  RightBack.spin(forward, (forwardAmount-turnAmount) * speedFactor / 2, percent);
+  LeftFront.spin(forward, (forwardAmount+turnAmount) * speedFactor / 2, percent);
+  LeftBack.spin(forward, (forwardAmount+turnAmount) * speedFactor / 2, percent);
 
 }
 //Void that controls the movement of the 4-bar lift
