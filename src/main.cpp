@@ -883,7 +883,7 @@ void autonomous(void) {
       LeftBack.spin(forward);
       RightFront.spin(forward);
       RightBack.spin(forward);
-      while(LeftFront.position(degrees)< x + 390){
+      while(LeftFront.position(degrees)< x + 430){
         wait(10, msec);
       }
       LeftFront.stop();
