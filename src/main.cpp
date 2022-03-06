@@ -280,7 +280,7 @@ int speedFactor = 1;
 
 void platformMode() {
   if(Controller1.ButtonX.pressing()){
-    speedFactor = 3;
+    speedFactor = 4;
     LeftFront.setStopping(hold);
     LeftBack.setStopping(hold);
     RightFront.setStopping(hold);
@@ -547,7 +547,7 @@ void autonomous(void) {
       LeftBack.spin(forward);
       RightFront.spin(forward);
       RightBack.spin(forward);
-      while(LeftFront.position(degrees)< x){
+      while(LeftFront.position(degrees)< x + 40){
         wait(10, msec);
       }
       LeftFront.stop();
