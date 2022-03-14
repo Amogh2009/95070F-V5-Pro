@@ -305,6 +305,8 @@ int selected = 0;
 std::string autons[9] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right", "Right 2 Neutral", "Skills", "Auton with 95070G", "Right 1 Neutral AWP", "Right Mid Neutral"};
 int size = 9;
 
+bool elevated = false;
+
 void autonSelector(){
   Controller1.Screen.clearScreen();
   task::sleep(100);
@@ -313,12 +315,20 @@ void autonSelector(){
     task::sleep(100);
     Controller1.Screen.clearLine(2);
     Controller1.Screen.setCursor(2,1);
-    Controller1.Screen.print(autons[selected].c_str());
+    Controller1.Screen.print((autons[selected] + ",").c_str());
+    Controller1.Screen.newLine();
+    Controller1.Screen.print((elevated ? "Elevated" : "Default"));
     task::sleep(100);
      if(Controller1.ButtonRight.pressing()){
-       selected = (selected + 1 + size) % size;
+      elevated = !elevated;
+        if (!elevated) {
+          selected = (selected + 1 + size) % size;
+        }
      }else if(Controller1.ButtonLeft.pressing()){
-       selected = (selected - 1 + size) % size;
+       elevated = !elevated;
+       if (elevated) {
+        selected = (selected - 1 + size) % size;
+       }
      }else if(Controller1.ButtonA.pressing()){
        task::sleep(100);
        if(Controller1.ButtonA.pressing()){
@@ -367,7 +377,7 @@ void autonomous(void) {
       LeftBack.spin(forward);
       RightFront.spin(forward);
       RightBack.spin(forward);
-      while(LeftFront.position(degrees)< x + 40){
+      while(LeftFront.position(degrees)< x + 40 - (elevated ? 20 : 0)){
         wait(10, msec);
       }
       LeftFront.stop();
@@ -703,7 +713,7 @@ void autonomous(void) {
       LeftBack.spin(forward);
       RightFront.spin(forward);
       RightBack.spin(forward);
-      while(LeftFront.position(degrees)< x + 430){
+      while(LeftFront.position(degrees)< x + 430 - (elevated ? 20 : 0)){
         wait(10, msec);
       }
       LeftFront.stop();
