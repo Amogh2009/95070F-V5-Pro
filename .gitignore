@@ -1,1 +1,6 @@
 compile_commands.json
+build/95070FV5Pro.bin
+build/95070FV5Pro.elf
+build/95070FV5Pro.map
+build/src/main.o
+build/src/robot-config.o
