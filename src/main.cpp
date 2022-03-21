@@ -314,6 +314,23 @@ void ForkliftDown(int rev = false) {
   Sporklift.spinFor(forward, rev ? -100: 100, degrees);
 }
 
+void UnstableFwd(int amt) {
+  /*
+  bad thing
+
+  error = amt
+  vel = 0
+  Drivetrain.go();
+  while (error <= amt) {
+    vel += inertial.acc(xaxis) * 0.02
+    error -= vel * 0.02
+    Drivetrain.setVelocity((amt-error)*100/amt, percent);
+    wait(0.02)
+  }
+  Drivetrain.stop();
+  */
+}
+
 //----------------------------------------------------------------------------------
 
 int selected = 0;
