@@ -790,7 +790,8 @@ void sporkliftMovement() {
   }
 }
 
-int triggerPercent = 30;
+int triggerPercent = 45;
+int logcool = 0;
 
 void testHeat() {
   for (int i = 0; i < sizeof(heatedBools); i++) {
@@ -800,8 +801,12 @@ void testHeat() {
     heatedBools[i] = (heatedMotors[i].temperature() > triggerPercent);
   } //extras to prevent controller spamming
 
-  Controller1.Screen.clearScreen();
-  Controller1.Screen.print("Clamp Heat: %f", Clamp.temperature());
+  logcool ++;
+  if (logcool >= 20) {
+    Brain.Screen.newLine();
+    Brain.Screen.print("Clamp Temp: %f", Clamp.temperature(percent));
+    logcool = 0;
+  }
 }
 
 /*---------------------------------------------------------------------------*/
