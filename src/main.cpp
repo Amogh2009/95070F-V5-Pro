@@ -790,7 +790,7 @@ void sporkliftMovement() {
   }
 }
 
-int triggerPercent = 47;
+int triggerPercent = 30;
 
 void testHeat() {
   for (int i = 0; i < sizeof(heatedBools); i++) {
