@@ -21,7 +21,6 @@ using namespace vex;
 competition Competition;
 //Function for determining whether input is positive, negative, or 0
 
-bool heatedBools[7] = {false, false, false, false, false, false, false};
 motor heatedMotors[7] {LeftFront, LeftBack, RightFront, RightBack, Clamp, RightLift, Sporklift}; 
 
 int autonselect = 1;
@@ -790,23 +789,24 @@ void sporkliftMovement() {
   }
 }
 
-int triggerPercent = 45;
+int triggerPercent = 65;
 int logcool = 0;
 
 void testHeat() {
-  for (int i = 0; i < sizeof(heatedBools); i++) {
-    if (!heatedBools[i] && heatedMotors[i].temperature() > triggerPercent) {
-      Controller1.rumble("-.-");
+  float avgDrive = 0;
+  float avgAttch = 0;
+  for (int i = 0; i < sizeof(heatedMotors); i++) {
+    if (i < 4) {
+      avgDrive += heatedMotors[i].temperature();
+    } else {
+      avgAttch += heatedMotors[i].temperature();
     }
-    heatedBools[i] = (heatedMotors[i].temperature() > triggerPercent);
-  } //extras to prevent controller spamming
-
-  logcool ++;
-  if (logcool >= 20) {
-    Brain.Screen.newLine();
-    Brain.Screen.print("Clamp Temp: %f", Clamp.temperature(percent));
-    logcool = 0;
   }
+  avgDrive /= 4;
+  avgAttch /= (sizeof(heatedMotors) - 4);
+  Controller1.Screen.setCursor(3,1);
+  Controller1.Screen.clearLine(3);
+  Controller1.Screen.print("Dr: %i, At: %i", (int) avgDrive, (int) avgAttch);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -818,7 +818,7 @@ void usercontrol(void) {
  // User control code here, inside the loop
   while (1) {
     Clamp.setStopping(hold);
-    testHeat();
+    //testHeat();
     simpleDrive();
     armLift();
     clampMovement();
