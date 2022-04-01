@@ -3,25 +3,10 @@
 // [Name]               [Type]        [Port(s)]
 // LeftFront            motor         3               
 // LeftBack             motor         14              
-// RightFront           motor         5               
+// RightFront           motor         4               
 // RightBack            motor         10              
 // RightLift            motor         15              
-// Clamp                motor         9               
-// Inertial             inertial      1               
-// Controller1          controller                    
-// OldbackPiston        digital_out   D               
-// Sporklift            motor         7               
-// Clamp2               motor         16              
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// LeftFront            motor         3               
-// LeftBack             motor         14              
-// RightFront           motor         5               
-// RightBack            motor         10              
-// RightLift            motor         15              
-// Clamp                motor         9               
+// Clamp                motor         5               
 // Inertial             inertial      1               
 // Controller1          controller                    
 // OldbackPiston        digital_out   D               
@@ -29,11 +14,15 @@
 // Clamp2               motor         16              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 #include "vex.h"
+#include <string>
 
 using namespace vex;
 // A global instance of competition
 competition Competition;
 //Function for determining whether input is positive, negative, or 0
+
+bool heatedBools[7] = {false, false, false, false, false, false, false};
+motor heatedMotors[7] {LeftFront, LeftBack, RightFront, RightBack, Clamp, RightLift, Sporklift}; 
 
 int autonselect = 1;
 int numOfAutons = 7;
@@ -321,7 +310,7 @@ void UnstableFwd(int amt) {
   error = amt
   vel = 0
   Drivetrain.go();
-  while (error <= amt) {
+  while (error >= 0) {
     vel += inertial.acc(xaxis) * 0.02
     error -= vel * 0.02
     Drivetrain.setVelocity((amt-error)*100/amt, percent);
@@ -801,6 +790,17 @@ void sporkliftMovement() {
   }
 }
 
+int triggerPercent = 47;
+
+void testHeat() {
+  for (int i = 0; i < sizeof(heatedBools); i++) {
+    if (!heatedBools[i] && heatedMotors[i].temperature() > triggerPercent) {
+      Controller1.rumble("-.-");
+    }
+    heatedBools[i] = (heatedMotors[i].temperature() > triggerPercent);
+  } //extras to prevent controller spamming
+}
+
 /*---------------------------------------------------------------------------*/
 /*                              User Control Task                            */
 /*  This task is used to control your robot during the user control phase of */
@@ -810,6 +810,7 @@ void usercontrol(void) {
  // User control code here, inside the loop
   while (1) {
     Clamp.setStopping(hold);
+    testHeat();
     simpleDrive();
     armLift();
     clampMovement();
