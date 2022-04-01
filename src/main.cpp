@@ -799,6 +799,9 @@ void testHeat() {
     }
     heatedBools[i] = (heatedMotors[i].temperature() > triggerPercent);
   } //extras to prevent controller spamming
+
+  Controller1.Screen.clearScreen();
+  Controller1.Screen.print("Clamp Heat: %f", Clamp.temperature());
 }
 
 /*---------------------------------------------------------------------------*/
