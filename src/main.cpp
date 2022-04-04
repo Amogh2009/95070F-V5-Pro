@@ -259,12 +259,41 @@ void turnClockwise(double amount){
   LeftFront.stop();
   wait(0.5, sec);
 }
+//BEN'S HELPER FUNCTIONS------------------------------------------------------------
+
+void moveDrivetrain(float vel, int dist, bool smooth, bool sync) {
+  LeftFront.setStopping(coast);
+  LeftBack.setStopping(coast);
+  RightFront.setStopping(coast);
+  RightBack.setStopping(coast);
+  LeftFront.setVelocity(vel, percent);
+  LeftBack.setVelocity(vel, percent);
+  RightFront.setVelocity(vel, percent);
+  RightBack.setVelocity(vel, percent);
+
+  if (smooth) {
+    LeftBack.setPosition(0, degrees);
+
+    LeftFront.spin(forward);
+    LeftBack.spin(forward);
+    RightFront.spin(forward);
+    RightBack.spin(forward);
+
+    while (abs(LeftBack.position(degrees)) {}
+
+  } else {
+    LeftFront.spinFor(forward, dist, degrees);
+    LeftBack.spinFor(forward, dist, degrees);
+    RightFront.spinFor(forward, dist, degrees);
+    RightBack.spinFor(forward, dist, degrees);
+  }
+}
 
 //----------------------------------------------------------------------------------
 
 int selected = 0;
 std::string autons[7] = {"Disabled", "Left Neutral", "AWP Left", "AWP Right", "Right Neutral", "Right Neutral AWP", "Right Mid"};
-int size = 7;
+int size = sizeof(autons);
 
 bool elevated = false;
 
