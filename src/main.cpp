@@ -260,82 +260,11 @@ void turnClockwise(double amount){
   wait(0.5, sec);
 }
 
-//BENS HELPER FUNCTIONS------------------------------------------------------------
-
-void blank() {}
-
-void DriveForward(int amt, int turning = 0, bool smooth = true, int vel = 200) {
-  
-  if (turning > 0) {
-    RightFront.setVelocity(vel - 2 * turning, rpm);
-    RightBack.setVelocity(vel - 2 * turning, rpm);
-    LeftFront.setVelocity(vel, rpm);
-    LeftBack.setVelocity(vel, rpm);
-  } else if (turning < 0) {
-    LeftFront.setVelocity(vel - 2 * turning, rpm);
-    LeftBack.setVelocity(vel - 2 * turning, rpm);
-    RightFront.setVelocity(vel, rpm);
-    RightBack.setVelocity(vel, rpm);
-  }
-  
-  if (smooth) {
-    LeftFront.setPosition(0, degrees);
-
-    LeftFront.spin(forward);
-    LeftBack.spin(forward);
-    RightFront.spin(forward);
-    RightBack.spin(forward);
-    if (amt > 0) {
-      while (LeftFront.position(degrees) < turning + amt) {
-        wait(10, msec);
-      }
-    } else if (amt < 0) {
-      while (LeftFront.position(degrees) > - turning - amt) {
-        wait(10, msec);
-      }
-    }
-    LeftFront.stop();
-    LeftBack.stop();
-    RightFront.stop();
-    RightBack.stop();
-  } else {
-    LeftFront.spinFor(forward, amt + turning, degrees, false);
-    LeftBack.spinFor(forward, amt + turning, degrees, false);
-    RightFront.spinFor(forward, amt - turning, degrees, false);
-    RightBack.spinFor(forward, amt - turning, degrees, true);
-  }
-}
-
-void ClampDown(int rev = false) {
-  Clamp.spinFor(forward, rev ? -40: 40, degrees);
-}
-
-void ForkliftDown(int rev = false) {
-  Sporklift.spinFor(forward, rev ? -100: 100, degrees);
-}
-
-void UnstableFwd(int amt) {
-  /*
-  bad thing
-
-  error = amt
-  vel = 0
-  Drivetrain.go();
-  while (error <= amt) {
-    vel += inertial.acc(xaxis) * 0.02
-    error -= vel * 0.02
-    Drivetrain.setVelocity((amt-error)*100/amt, percent);
-    wait(0.02)
-  }
-  Drivetrain.stop();
-  */
-}
-
 //----------------------------------------------------------------------------------
 
 int selected = 0;
-std::string autons[9] = {"Disabled", "Left 1 Neutral", "AWP Left", "AWP Right", "Right 2 Neutral", "Skills", "Auton with 95070G", "Right 1 Neutral AWP", "Right Mid Neutral"};
-int size = 9;
+std::string autons[7] = {"Disabled", "Left Neutral", "AWP Left", "AWP Right", "Right Neutral", "Right Neutral AWP", "Right Mid"};
+int size = 7;
 
 bool elevated = false;
 
@@ -389,10 +318,10 @@ void pre_auton(void) {
 void autonomous(void) {
   int x = 980; // Degrees for moving forward to the neutral goal
   switch(selected){
-    case 0:{
+    case 0:{ //Disabled
       break;
     }
-    case 1:{
+    case 1:{ //Left Neutral
       LeftFront.setStopping(coast);
       LeftBack.setStopping(coast);
       RightBack.setStopping(coast);
@@ -443,19 +372,19 @@ void autonomous(void) {
       RightBack.spinFor(reverse, x, degrees, false);
       break; 
     }
-    case 2: {
+    case 2: { //AWP Left
       Clamp.spinFor(forward, 40, degrees, true);
       Clamp.spinFor(forward, -40, degrees, true);
       break;
     }
-    case 3: {
+    case 3: { //AWP Right
       LeftFront.setStopping(coast);
       LeftBack.setStopping(coast);
       RightBack.setStopping(coast);
       RightFront.setStopping(coast);
       break;
     }
-    case 4: {
+    case 4: { //Right Neutral
       int y = 500;
       int z = 1230;
 
@@ -515,107 +444,7 @@ void autonomous(void) {
 
       break;
     }
-    case 5: {
-      //SKILLS
-      //EXTREMELY ROUGH. NO WAY IN HECK THIS IS GONNA WORK.
-
-      DriveForward(980);
-      ClampDown();
-      ForkliftDown();
-      wait(1, sec);
-      DriveForward(-600, -200, false);
-      wait(1, sec);
-      ForkliftDown(false);
-      wait(1, sec);
-      DriveForward(1000, -300, false);
-
-      RightLift.setVelocity(100, percent);
-      RightLift.spinFor(reverse, 100, degrees);
-      DriveForward(50);
-      RightLift.spinFor(forward, 20, degrees);
-      ClampDown(true);
-      ForkliftDown(true);
-      DriveForward(-50);
-      RightLift.spinFor(forward, 80, degrees);
-
-      DriveForward(-100);
-      DriveForward(100);
-      DriveForward(-400, -30);
-      DriveForward(400);
-      ClampDown();
-      DriveForward(-400, 30);
-      DriveForward(400);
-
-      RightLift.setVelocity(100, percent);
-      RightLift.spinFor(reverse, 100, degrees);
-      DriveForward(50);
-      ClampDown(true);
-      RightLift.spinFor(forward, 100, degrees);
-      DriveForward(-50);
-
-      DriveForward(0, 70);
-      DriveForward(100, 30);
-      ClampDown();
-      DriveForward(-100, -30);
-      DriveForward(0, -70);
-
-      RightLift.setVelocity(100, percent);
-      RightLift.spinFor(reverse, 100, degrees);
-      DriveForward(50);
-      ClampDown(true);
-      RightLift.spinFor(forward, 100, degrees);
-      DriveForward(-50);
-      break;
-    }
-    case 6: {
-      LeftFront.setStopping(coast);
-      LeftBack.setStopping(coast);
-      RightBack.setStopping(coast);
-      RightFront.setStopping(coast);
-      LeftFront.setVelocity(100, percent);
-      LeftBack.setVelocity(100, percent);
-      RightFront.setVelocity(100, percent);
-      RightBack.setVelocity(100, percent);
-      LeftFront.setPosition(0, degrees);
-      Clamp.setVelocity(100, percent);
-      Clamp.spinFor(forward, -45, degrees, false);
-      RightLift.spinFor(reverse, 50, degrees, false);
-      LeftFront.spin(forward);
-      LeftBack.spin(forward);
-      RightFront.spin(forward);
-      RightBack.spin(forward);
-      while(LeftFront.position(degrees)< x){
-        wait(10, msec);
-      }
-      LeftFront.stop();
-      LeftBack.stop();
-      RightFront.stop();
-      RightBack.stop();
-
-      wait(100, msec);
-
-      Clamp.setVelocity(100, percent);
-
-      Clamp.setPosition(0, degrees);
-      Clamp.spin(forward);
-      while(Clamp.position(degrees) < 40){
-        wait(10, msec);
-      }
-
-      Clamp.stop();
-
-      LeftFront.setVelocity(100, percent);
-      LeftBack.setVelocity(100, percent);
-      RightFront.setVelocity(100, percent);
-      RightBack.setVelocity(100, percent);
-
-      LeftFront.spinFor(forward, 250, degrees, false);
-      LeftBack.spinFor(forward, 250, degrees, false);
-      RightFront.spinFor(reverse, 250, degrees, false);
-      RightBack.spinFor(reverse, 250, degrees, false);
-      break;
-    }
-    case 7: {
+    case 5: { //Right Neutral AWP
       LeftFront.setStopping(coast);
       LeftBack.setStopping(coast);
       RightBack.setStopping(coast);
@@ -726,7 +555,7 @@ void autonomous(void) {
       
       break; 
     }
-    case 8: {
+    case 6: { //Right Mid
       
 
       LeftFront.setStopping(coast);
