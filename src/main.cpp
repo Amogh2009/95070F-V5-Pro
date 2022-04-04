@@ -15,6 +15,7 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
+#include <cmath>
 
 using namespace vex;
 // A global instance of competition
@@ -265,7 +266,14 @@ void moveDrivetrain(float vel, int dist, bool smooth, bool sync) {
     RightFront.spin(forward);
     RightBack.spin(forward);
 
-    while (abs(LeftBack.position(degrees)) {}
+    while (std::abs(LeftBack.position(degrees)) < std::abs(dist)) {
+      wait(10, msec);
+    }
+
+    LeftFront.stop();
+    LeftBack.stop();
+    RightFront.stop();
+    RightBack.stop();
 
   } else {
     LeftFront.spinFor(forward, dist, degrees);
