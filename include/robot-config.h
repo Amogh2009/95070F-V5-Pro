@@ -14,6 +14,8 @@ extern controller Controller1;
 extern digital_out OldbackPiston;
 extern motor Sporklift;
 extern motor Clamp2;
+extern motor RightMiddle;
+extern motor LeftMiddle;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
