@@ -1,7 +1,7 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// LeftFront            motor         3               
+// LeftFront            motor         4               
 // LeftBack             motor         14              
 // RightFront           motor         8               
 // RightBack            motor         10              
@@ -185,7 +185,7 @@ void simpleDrive(){
   RightBack.spin(forward, (forwardAmount-turnAmount) / speedFactor, percent);
   LeftFront.spin(forward, (forwardAmount+turnAmount) / speedFactor, percent);
   LeftBack.spin(forward, (forwardAmount+turnAmount) / speedFactor, percent);
-  RightMiddle.spin(forward, (forwardAmount+turnAmount) / speedFactor, percent);
+  RightMiddle.spin(forward, (forwardAmount-turnAmount) / speedFactor, percent);
   LeftMiddle.spin(forward, (forwardAmount+turnAmount) / speedFactor, percent);
 }
 //Void that controls the movement of the 4-bar lift
