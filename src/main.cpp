@@ -14,6 +14,8 @@
 // Clamp2               motor         16              
 // RightMiddle          motor         18              
 // LeftMiddle           motor         17              
+// ClampSolenoid        digital_out   A               
+// ClampSolenoid2       digital_out   B               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 
@@ -206,16 +208,20 @@ void armLift(){
 
 void clampMovement() {
   if(Controller1.ButtonR2.pressing()){
-    Clamp.setVelocity(200,percent);
-    Clamp.spin(forward);
+    /*Clamp.setVelocity(200,percent);
+    Clamp.spin(forward);*/
+    ClampSolenoid.set(true);
+    ClampSolenoid2.set(true);
   }
   else if(Controller1.ButtonR1.pressing()){
-    Clamp.setVelocity(200, percent);
-    Clamp.spin(reverse);
+    /*Clamp.setVelocity(200, percent);
+    Clamp.spin(reverse);*/
+    ClampSolenoid.set(false);
+    ClampSolenoid2.set(false);
   }
   else{
-    Clamp.setStopping(hold);
-    Clamp.stop();
+    /*Clamp.setStopping(hold);
+    Clamp.stop();*/
   }
 }
 
@@ -410,7 +416,9 @@ void autonomous(void) {
       LeftBack.setVelocity(100, percent);
       LeftFront.setPosition(0, degrees);
       Clamp.setVelocity(100, percent);
-      Clamp.spinFor(forward, -45, degrees, false);
+      //Clamp.spinFor(forward, -45, degrees, false);
+      ClampSolenoid.set(false);
+      ClampSolenoid2.set(false);
       RightLift.spinFor(reverse, 50, degrees, false);
       LeftFront.spin(forward);
       LeftBack.spin(forward);
@@ -430,7 +438,7 @@ void autonomous(void) {
 
       wait(100, msec);
 
-      Clamp.setVelocity(100, percent);
+      /* Clamp.setVelocity(100, percent);
 
       Clamp.setPosition(0, degrees);
       Clamp.spin(forward);
@@ -439,6 +447,10 @@ void autonomous(void) {
       }
 
       Clamp.stop();
+      */
+
+      ClampSolenoid.set(true);
+      ClampSolenoid2.set(true);
 
       //LeftFront.setVelocity(100, rpm);
       //LeftBack.setVelocity(100, rpm);
@@ -459,8 +471,10 @@ void autonomous(void) {
       break; 
     }
     case 2: { //AWP Left
-      Clamp.spinFor(forward, 40, degrees, true);
-      Clamp.spinFor(forward, -40, degrees, true);
+      /* Clamp.spinFor(forward, 40, degrees, true);
+      Clamp.spinFor(forward, -40, degrees, true); */
+      ClampSolenoid.set(true);
+      ClampSolenoid2.set(true);
       break;
     }
     case 3: { //AWP Right

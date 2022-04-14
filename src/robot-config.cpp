@@ -21,6 +21,8 @@ motor Sporklift = motor(PORT7, ratio36_1, false);
 motor Clamp2 = motor(PORT16, ratio18_1, true);
 motor RightMiddle = motor(PORT18, ratio18_1, true);
 motor LeftMiddle = motor(PORT17, ratio18_1, false);
+digital_out ClampSolenoid = digital_out(Brain.ThreeWirePort.A);
+digital_out ClampSolenoid2 = digital_out(Brain.ThreeWirePort.B);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
