@@ -8,19 +8,19 @@ using code = vision::code;
 brain  Brain;
 
 // VEXcode device constructors
-motor LeftFront = motor(PORT4, ratio18_1, true);
-motor LeftBack = motor(PORT14, ratio18_1, true);
-motor RightFront = motor(PORT8, ratio18_1, false);
-motor RightBack = motor(PORT10, ratio18_1, false);
-motor RightLift = motor(PORT15, ratio36_1, true);
-motor Clamp = motor(PORT1, ratio36_1, false);
+motor LeftFront = motor(PORT1, ratio18_1, true);
+motor LeftBack = motor(PORT5, ratio18_1, true);
+motor RightFront = motor(PORT2, ratio18_1, false);
+motor RightBack = motor(PORT6, ratio18_1, false);
+motor RightLift = motor(PORT7, ratio36_1, true);
+motor Clamp = motor(PORT20, ratio36_1, false);
 inertial Inertial = inertial(PORT21);
 controller Controller1 = controller(primary);
 digital_out OldbackPiston = digital_out(Brain.ThreeWirePort.D);
-motor Sporklift = motor(PORT7, ratio36_1, false);
+motor Sporklift = motor(PORT8, ratio36_1, false);
 motor Clamp2 = motor(PORT16, ratio18_1, true);
-motor RightMiddle = motor(PORT18, ratio18_1, true);
-motor LeftMiddle = motor(PORT17, ratio18_1, false);
+motor RightMiddle = motor(PORT4, ratio18_1, true);
+motor LeftMiddle = motor(PORT3, ratio18_1, false);
 digital_out ClampSolenoid = digital_out(Brain.ThreeWirePort.A);
 digital_out ClampSolenoid2 = digital_out(Brain.ThreeWirePort.B);
 

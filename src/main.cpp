@@ -1,19 +1,19 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// LeftFront            motor         4               
-// LeftBack             motor         14              
-// RightFront           motor         8               
-// RightBack            motor         10              
-// RightLift            motor         15              
-// Clamp                motor         1               
+// LeftFront            motor         1               
+// LeftBack             motor         5               
+// RightFront           motor         2               
+// RightBack            motor         6               
+// RightLift            motor         7               
+// Clamp                motor         20              
 // Inertial             inertial      21              
 // Controller1          controller                    
 // OldbackPiston        digital_out   D               
-// Sporklift            motor         7               
+// Sporklift            motor         8               
 // Clamp2               motor         16              
-// RightMiddle          motor         18              
-// LeftMiddle           motor         17              
+// RightMiddle          motor         4               
+// LeftMiddle           motor         3               
 // ClampSolenoid        digital_out   A               
 // ClampSolenoid2       digital_out   B               
 // ---- END VEXCODE CONFIGURED DEVICES ----
