@@ -22,7 +22,6 @@ motor Clamp2 = motor(PORT16, ratio18_1, true);
 motor RightMiddle = motor(PORT4, ratio18_1, true);
 motor LeftMiddle = motor(PORT3, ratio18_1, false);
 digital_out ClampSolenoid = digital_out(Brain.ThreeWirePort.A);
-digital_out ClampSolenoid2 = digital_out(Brain.ThreeWirePort.B);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable

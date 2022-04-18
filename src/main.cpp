@@ -15,7 +15,6 @@
 // RightMiddle          motor         4               
 // LeftMiddle           motor         3               
 // ClampSolenoid        digital_out   A               
-// ClampSolenoid2       digital_out   B               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 
@@ -211,13 +210,11 @@ void clampMovement() {
     /*Clamp.setVelocity(200,percent);
     Clamp.spin(forward);*/
     ClampSolenoid.set(true);
-    ClampSolenoid2.set(true);
   }
   else if(Controller1.ButtonR1.pressing()){
     /*Clamp.setVelocity(200, percent);
     Clamp.spin(reverse);*/
     ClampSolenoid.set(false);
-    ClampSolenoid2.set(false);
   }
   else{
     /*Clamp.setStopping(hold);
@@ -418,7 +415,6 @@ void autonomous(void) {
       Clamp.setVelocity(100, percent);
       //Clamp.spinFor(forward, -45, degrees, false);
       ClampSolenoid.set(false);
-      ClampSolenoid2.set(false);
       RightLift.spinFor(reverse, 50, degrees, false);
       LeftFront.spin(forward);
       LeftBack.spin(forward);
@@ -450,7 +446,6 @@ void autonomous(void) {
       */
 
       ClampSolenoid.set(true);
-      ClampSolenoid2.set(true);
 
       //LeftFront.setVelocity(100, rpm);
       //LeftBack.setVelocity(100, rpm);
@@ -474,7 +469,6 @@ void autonomous(void) {
       /* Clamp.spinFor(forward, 40, degrees, true);
       Clamp.spinFor(forward, -40, degrees, true); */
       ClampSolenoid.set(true);
-      ClampSolenoid2.set(true);
       break;
     }
     case 3: { //AWP Right

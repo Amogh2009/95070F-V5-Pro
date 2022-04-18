@@ -17,7 +17,6 @@ extern motor Clamp2;
 extern motor RightMiddle;
 extern motor LeftMiddle;
 extern digital_out ClampSolenoid;
-extern digital_out ClampSolenoid2;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
