@@ -209,12 +209,12 @@ void clampMovement() {
   if(Controller1.ButtonR2.pressing()){
     /*Clamp.setVelocity(200,percent);
     Clamp.spin(forward);*/
-    ClampSolenoid.set(true);
+    ClampSolenoid.set(false);
   }
   else if(Controller1.ButtonR1.pressing()){
     /*Clamp.setVelocity(200, percent);
     Clamp.spin(reverse);*/
-    ClampSolenoid.set(false);
+    ClampSolenoid.set(true);
   }
   else{
     /*Clamp.setStopping(hold);
@@ -414,7 +414,7 @@ void autonomous(void) {
       LeftFront.setPosition(0, degrees);
       Clamp.setVelocity(100, percent);
       //Clamp.spinFor(forward, -45, degrees, false);
-      ClampSolenoid.set(false);
+      ClampSolenoid.set(true);
       RightLift.spinFor(reverse, 50, degrees, false);
       LeftFront.spin(forward);
       LeftBack.spin(forward);
@@ -445,7 +445,7 @@ void autonomous(void) {
       Clamp.stop();
       */
 
-      ClampSolenoid.set(true);
+      ClampSolenoid.set(false);
 
       //LeftFront.setVelocity(100, rpm);
       //LeftBack.setVelocity(100, rpm);
@@ -468,7 +468,7 @@ void autonomous(void) {
     case 2: { //AWP Left
       /* Clamp.spinFor(forward, 40, degrees, true);
       Clamp.spinFor(forward, -40, degrees, true); */
-      ClampSolenoid.set(true);
+      ClampSolenoid.set(false);
       break;
     }
     case 3: { //AWP Right
