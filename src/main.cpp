@@ -28,6 +28,60 @@
 // Inertial             inertial      21              
 // Controller1          controller                    
 // OldbackPiston        digital_out   D               
+// Sporklift            motor         9               
+// Clamp2               motor         16              
+// RightMiddle          motor         4               
+// LeftMiddle           motor         3               
+// ClampSolenoid        digital_out   A               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         1               
+// LeftBack             motor         5               
+// RightFront           motor         2               
+// RightBack            motor         6               
+// RightLift            motor         10              
+// Clamp                motor         20              
+// Inertial             inertial      21              
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         9               
+// Clamp2               motor         16              
+// RightMiddle          motor         4               
+// LeftMiddle           motor         3               
+// ClampSolenoid        digital_out   A               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         1               
+// LeftBack             motor         5               
+// RightFront           motor         2               
+// RightBack            motor         6               
+// RightLift            motor         10              
+// Clamp                motor         20              
+// Inertial             inertial      21              
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         9               
+// Clamp2               motor         16              
+// RightMiddle          motor         4               
+// LeftMiddle           motor         3               
+// ClampSolenoid        digital_out   A               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         1               
+// LeftBack             motor         5               
+// RightFront           motor         2               
+// RightBack            motor         6               
+// RightLift            motor         10              
+// Clamp                motor         20              
+// Inertial             inertial      21              
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
 // Sporklift            motor         8               
 // Clamp2               motor         16              
 // RightMiddle          motor         4               
@@ -152,7 +206,7 @@ int speedFactor = 1;
 
 void platformMode() {
   if(Controller1.ButtonX.pressing()){
-    speedFactor = 4;
+    speedFactor = 6;
     LeftFront.setStopping(hold);
     LeftBack.setStopping(hold);
     RightFront.setStopping(hold);
@@ -364,19 +418,19 @@ void moveDrivetrain(float vel, int dist, bool smooth, bool sync) {
     LeftMiddle.stop();
 
   } else {
-    LeftFront.spinFor(forward, dist, degrees);
-    LeftBack.spinFor(forward, dist, degrees);
-    RightFront.spinFor(forward, dist, degrees);
-    RightBack.spinFor(forward, dist, degrees);
-    RightMiddle.spinFor(forward, dist, degrees);
-    LeftMiddle.spinFor(forward, dist, degrees);
+    LeftFront.spinFor(forward, dist, degrees, false);
+    LeftBack.spinFor(forward, dist, degrees, false);
+    RightFront.spinFor(forward, dist, degrees, false);
+    RightBack.spinFor(forward, dist, degrees, false);
+    RightMiddle.spinFor(forward, dist, degrees, false);
+    LeftMiddle.spinFor(forward, dist, degrees, sync);
   }
 }
 
 //----------------------------------------------------------------------------------
 
 int selected = 0;
-std::string autons[7] = {"Disabled", "Left Neutral", "AWP Left", "AWP Right", "Right Neutral", "Right Neutral AWP", "Right Mid"};
+std::string autons[8] = {"Disabled", "Left Neutral", "AWP Left", "AWP Right", "Right Neutral", "Right Neutral AWP", "Right Mid", "AWP2 from Left"};
 int size = sizeof(autons);
 
 bool elevated = false;
@@ -789,6 +843,10 @@ void autonomous(void) {
       RightMiddle.spinFor(reverse, x + 230, degrees, false);
       LeftMiddle.spinFor(reverse, x + 230, degrees, false);
       break;
+    }
+    case 7: { //AWP Carry from Left
+      moveDrivetrain(100, 200, true, true);
+      ClampSolenoid.set(true);
     }
   }
 }
