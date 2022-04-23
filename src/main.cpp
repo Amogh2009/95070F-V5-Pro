@@ -82,6 +82,42 @@
 // Inertial             inertial      21              
 // Controller1          controller                    
 // OldbackPiston        digital_out   D               
+// Sporklift            motor         9               
+// Clamp2               motor         16              
+// RightMiddle          motor         4               
+// LeftMiddle           motor         3               
+// ClampSolenoid        digital_out   A               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         1               
+// LeftBack             motor         5               
+// RightFront           motor         2               
+// RightBack            motor         6               
+// RightLift            motor         10              
+// Clamp                motor         20              
+// Inertial             inertial      21              
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         9               
+// Clamp2               motor         16              
+// RightMiddle          motor         4               
+// LeftMiddle           motor         3               
+// ClampSolenoid        digital_out   A               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         1               
+// LeftBack             motor         5               
+// RightFront           motor         2               
+// RightBack            motor         6               
+// RightLift            motor         10              
+// Clamp                motor         20              
+// Inertial             inertial      21              
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
 // Sporklift            motor         8               
 // Clamp2               motor         16              
 // RightMiddle          motor         4               
@@ -504,7 +540,7 @@ void autonomous(void) {
       LeftFront.setPosition(0, degrees);
       Clamp.setVelocity(100, percent);
       //Clamp.spinFor(forward, -45, degrees, false);
-      ClampSolenoid.set(true);
+      ClampSolenoid.set(false);
       RightLift.spinFor(reverse, 50, degrees, false);
       LeftFront.spin(forward);
       LeftBack.spin(forward);
@@ -535,7 +571,7 @@ void autonomous(void) {
       Clamp.stop();
       */
 
-      ClampSolenoid.set(false);
+      ClampSolenoid.set(true);
 
       //LeftFront.setVelocity(100, rpm);
       //LeftBack.setVelocity(100, rpm);
