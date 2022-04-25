@@ -205,12 +205,12 @@ void armLift(){
 }
 
 void clampMovement() {
-  if(Controller1.ButtonR2.pressing()){
+  if(Controller1.ButtonR1.pressing()){
     /*Clamp.setVelocity(200,percent);
     Clamp.spin(forward);*/
     ClampSolenoid.set(false);
   }
-  else if(Controller1.ButtonR1.pressing()){
+  else if(Controller1.ButtonR2.pressing()){
     /*Clamp.setVelocity(200, percent);
     Clamp.spin(reverse);*/
     ClampSolenoid.set(true);
@@ -482,21 +482,21 @@ void autonomous(void) {
     case 4: { //2 Goal Right
       LeftFront.setStopping(coast);
       LeftBack.setStopping(coast);
-      RightFront.setStopping(coast);
       RightBack.setStopping(coast);
+      RightFront.setStopping(coast);
       LeftMiddle.setStopping(coast);
       RightMiddle.setStopping(coast);
       LeftFront.setVelocity(100, percent);
       LeftBack.setVelocity(100, percent);
       RightFront.setVelocity(100, percent);
       RightBack.setVelocity(100, percent);
-      LeftMiddle.setVelocity(100, percent);
       RightMiddle.setVelocity(100, percent);
+      LeftMiddle.setVelocity(100, percent);
       LeftFront.setPosition(0, degrees);
       Clamp.setVelocity(100, percent);
       //Clamp.spinFor(forward, -45, degrees, false);
       ClampSolenoid.set(false);
-      RightLift.spinFor(reverse, 50, degrees, false);
+      //RightLift.spinFor(reverse, 50, degrees, false);
       LeftFront.spin(forward);
       LeftBack.spin(forward);
       RightFront.spin(forward);
@@ -515,8 +515,21 @@ void autonomous(void) {
 
       wait(100, msec);
 
+      /* Clamp.setVelocity(100, percent);
+
+      Clamp.setPosition(0, degrees);
+      Clamp.spin(forward);
+      while(Clamp.position(degrees) < 40){
+        wait(10, msec);
+      }
+
+      Clamp.stop();
+      */
 
       ClampSolenoid.set(true);
+
+      //LeftFront.setVelocity(100, rpm);
+      //LeftBack.setVelocity(100, rpm);
 
       LeftFront.setVelocity(100, percent);
       LeftBack.setVelocity(100, percent);
@@ -530,9 +543,12 @@ void autonomous(void) {
       RightFront.spinFor(reverse, x-150, degrees, false);
       RightBack.spinFor(reverse, x-150, degrees, false);
       RightMiddle.spinFor(reverse, x-150, degrees, false);
-      LeftMiddle.spinFor(reverse, x-150, degrees, false);
-
+      LeftMiddle.spinFor(reverse, x-150, degrees, true);
+      
       ClampSolenoid.set(false);
+
+      wait(100, msec);
+      
       break;
     }
     case 5: { //Right Neutral AWP
