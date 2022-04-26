@@ -16,6 +16,78 @@
 // LeftMiddle           motor         3               
 // ClampSolenoid        digital_out   A               
 // ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         1               
+// LeftBack             motor         5               
+// RightFront           motor         2               
+// RightBack            motor         6               
+// RightLift            motor         10              
+// Clamp                motor         20              
+// Inertial             inertial      21              
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         9               
+// Clamp2               motor         16              
+// RightMiddle          motor         4               
+// LeftMiddle           motor         3               
+// ClampSolenoid        digital_out   A               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         1               
+// LeftBack             motor         5               
+// RightFront           motor         2               
+// RightBack            motor         6               
+// RightLift            motor         10              
+// Clamp                motor         20              
+// Inertial             inertial      21              
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         9               
+// Clamp2               motor         16              
+// RightMiddle          motor         4               
+// LeftMiddle           motor         3               
+// ClampSolenoid        digital_out   A               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         1               
+// LeftBack             motor         5               
+// RightFront           motor         2               
+// RightBack            motor         6               
+// RightLift            motor         10              
+// Clamp                motor         20              
+// Inertial             inertial      21              
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         9               
+// Clamp2               motor         16              
+// RightMiddle          motor         4               
+// LeftMiddle           motor         3               
+// ClampSolenoid        digital_out   A               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         1               
+// LeftBack             motor         5               
+// RightFront           motor         2               
+// RightBack            motor         6               
+// RightLift            motor         10              
+// Clamp                motor         20              
+// Inertial             inertial      21              
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         9               
+// Clamp2               motor         16              
+// RightMiddle          motor         4               
+// LeftMiddle           motor         3               
+// ClampSolenoid        digital_out   A               
+// ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
 #include <cmath>
@@ -544,9 +616,34 @@ void autonomous(void) {
       RightBack.spinFor(reverse, x-150, degrees, false);
       RightMiddle.spinFor(reverse, x-150, degrees, false);
       LeftMiddle.spinFor(reverse, x-150, degrees, true);
-      
+
+      LeftFront.spinFor(forward, 450, degrees, false);
+      LeftBack.spinFor(forward, 450, degrees, false);
+      LeftMiddle.spinFor(forward, 450, degrees, false);
+      RightFront.spinFor(reverse, 450, degrees, false);
+      RightBack.spinFor(reverse, 450, degrees, false);
+      RightMiddle.spinFor(reverse, 450, degrees, true);
+
       ClampSolenoid.set(false);
 
+      Sporklift.spinFor(forward, 600, degrees, true);
+
+      LeftFront.spinFor(reverse, 1269, degrees, false);
+      LeftBack.spinFor(reverse, 1269, degrees, false);
+      LeftMiddle.spinFor(reverse, 1269, degrees, false);
+      RightFront.spinFor(reverse, 1269, degrees, false);
+      RightBack.spinFor(reverse, 1269, degrees, false);
+      RightMiddle.spinFor(reverse, 1269, degrees, true);
+
+      Sporklift.spinFor(reverse, 400, degrees, true);
+
+      LeftFront.spinFor(forward, 1269, degrees, false);
+      LeftBack.spinFor(forward, 1269, degrees, false);
+      LeftMiddle.spinFor(forward, 1269, degrees, false);
+      RightFront.spinFor(forward, 1269, degrees, false);
+      RightBack.spinFor(forward, 1269, degrees, false);
+      RightMiddle.spinFor(forward, 1269, degrees, true);
+      
       wait(100, msec);
       
       break;
