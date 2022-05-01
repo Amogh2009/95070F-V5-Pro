@@ -160,6 +160,42 @@
 // LeftMiddle           motor         3               
 // ClampSolenoid        digital_out   A               
 // ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         1               
+// LeftBack             motor         5               
+// RightFront           motor         2               
+// RightBack            motor         6               
+// RightLift            motor         10              
+// Clamp                motor         20              
+// Inertial             inertial      21              
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         9               
+// Clamp2               motor         16              
+// RightMiddle          motor         4               
+// LeftMiddle           motor         3               
+// ClampSolenoid        digital_out   A               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// LeftFront            motor         1               
+// LeftBack             motor         5               
+// RightFront           motor         2               
+// RightBack            motor         6               
+// RightLift            motor         10              
+// Clamp                motor         20              
+// Inertial             inertial      21              
+// Controller1          controller                    
+// OldbackPiston        digital_out   D               
+// Sporklift            motor         9               
+// Clamp2               motor         16              
+// RightMiddle          motor         4               
+// LeftMiddle           motor         3               
+// ClampSolenoid        digital_out   A               
+// ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
 #include <cmath>
@@ -701,12 +737,12 @@ void autonomous(void) {
       Sporklift.setVelocity(100, percent);
       Sporklift.spinFor(forward, 600, degrees, true);
 
-      LeftFront.spinFor(reverse, 1200, degrees, false);
-      LeftBack.spinFor(reverse, 1200, degrees, false);
-      LeftMiddle.spinFor(reverse, 1200, degrees, false);
-      RightFront.spinFor(reverse, 1200, degrees, false);
-      RightBack.spinFor(reverse, 1200, degrees, false);
-      RightMiddle.spinFor(reverse, 1200, degrees, true);
+      LeftFront.spinFor(reverse, 1050, degrees, false);
+      LeftBack.spinFor(reverse, 1050, degrees, false);
+      LeftMiddle.spinFor(reverse, 1050, degrees, false);
+      RightFront.spinFor(reverse, 1050, degrees, false);
+      RightBack.spinFor(reverse, 1050, degrees, false);
+      RightMiddle.spinFor(reverse, 1050, degrees, true);
 
       Sporklift.setVelocity(50, percent);
       Sporklift.spinFor(reverse, 400, degrees, true);
