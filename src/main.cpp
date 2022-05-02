@@ -196,42 +196,6 @@
 // LeftMiddle           motor         3               
 // ClampSolenoid        digital_out   A               
 // ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// LeftFront            motor         1               
-// LeftBack             motor         5               
-// RightFront           motor         2               
-// RightBack            motor         6               
-// RightLift            motor         10              
-// Clamp                motor         20              
-// Inertial             inertial      21              
-// Controller1          controller                    
-// OldbackPiston        digital_out   D               
-// Sporklift            motor         9               
-// Clamp2               motor         16              
-// RightMiddle          motor         4               
-// LeftMiddle           motor         3               
-// ClampSolenoid        digital_out   A               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// LeftFront            motor         1               
-// LeftBack             motor         5               
-// RightFront           motor         2               
-// RightBack            motor         6               
-// RightLift            motor         10              
-// Clamp                motor         20              
-// Inertial             inertial      21              
-// Controller1          controller                    
-// OldbackPiston        digital_out   D               
-// Sporklift            motor         9               
-// Clamp2               motor         16              
-// RightMiddle          motor         4               
-// LeftMiddle           motor         3               
-// ClampSolenoid        digital_out   A               
-// ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
 #include <cmath>
@@ -693,13 +657,6 @@ void autonomous(void) {
       RightFront.setStopping(coast);
       RightMiddle.setStopping(coast);
       LeftMiddle.setStopping(coast);
-      LeftFront.setVelocity(50, percent);
-      LeftBack.setVelocity(50, percent);
-      RightFront.setVelocity(50, percent);
-      RightBack.setVelocity(50, percent);
-      RightMiddle.setVelocity(50, percent);
-      LeftMiddle.setVelocity(50, percent);
-      RightLift.spinFor(forward, 500, degrees);
       break;
     }
     case 4: { //2 Goal Right
@@ -769,23 +726,23 @@ void autonomous(void) {
       LeftMiddle.spinFor(reverse, x-150, degrees, true);
 
       LeftFront.spinFor(forward, 400, degrees, false);
-      LeftBack.spinFor(forward, 415, degrees, false);
-      LeftMiddle.spinFor(forward, 415, degrees, false);
-      RightFront.spinFor(reverse, 415, degrees, false);
-      RightBack.spinFor(reverse, 415, degrees, false);
-      RightMiddle.spinFor(reverse, 415, degrees, true);
+      LeftBack.spinFor(forward, 400, degrees, false);
+      LeftMiddle.spinFor(forward, 400, degrees, false);
+      RightFront.spinFor(reverse, 400, degrees, false);
+      RightBack.spinFor(reverse, 400, degrees, false);
+      RightMiddle.spinFor(reverse, 400, degrees, true);
 
-      //ClampSolenoid.set(false);
+      ClampSolenoid.set(false);
 
       Sporklift.setVelocity(100, percent);
-      Sporklift.spinFor(forward, 650, degrees, true);
+      Sporklift.spinFor(forward, 600, degrees, true);
 
-      LeftFront.spinFor(reverse, 1100, degrees, false);
-      LeftBack.spinFor(reverse, 1100, degrees, false);
-      LeftMiddle.spinFor(reverse, 1100, degrees, false);
-      RightFront.spinFor(reverse, 1100, degrees, false);
-      RightBack.spinFor(reverse, 1100, degrees, false);
-      RightMiddle.spinFor(reverse, 1100, degrees, true);
+      LeftFront.spinFor(reverse, 1050, degrees, false);
+      LeftBack.spinFor(reverse, 1050, degrees, false);
+      LeftMiddle.spinFor(reverse, 1050, degrees, false);
+      RightFront.spinFor(reverse, 1050, degrees, false);
+      RightBack.spinFor(reverse, 1050, degrees, false);
+      RightMiddle.spinFor(reverse, 1050, degrees, true);
 
       Sporklift.setVelocity(50, percent);
       Sporklift.spinFor(reverse, 400, degrees, true);
