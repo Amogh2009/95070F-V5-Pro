@@ -557,12 +557,39 @@ void autonomous(void) {
       Sporklift.setVelocity(100, percent);
       Sporklift.spinFor(forward, 600, degrees, true);
 
-      LeftFront.spinFor(reverse, 1200, degrees, false);
-      LeftBack.spinFor(reverse, 1200, degrees, false);
-      LeftMiddle.spinFor(reverse, 1200, degrees, false);
-      RightFront.spinFor(reverse, 1200, degrees, false);
-      RightBack.spinFor(reverse, 1200, degrees, false);
-      RightMiddle.spinFor(reverse, 1200, degrees, true);
+      // going reverse to pick up tall goal at 100% power
+
+      LeftFront.spinFor(reverse, 1000, degrees, false);
+      LeftBack.spinFor(reverse, 1000, degrees, false);
+      LeftMiddle.spinFor(reverse, 1000, degrees, false);
+      RightFront.spinFor(reverse, 1000, degrees, false);
+      RightBack.spinFor(reverse, 1000, degrees, false);
+      RightMiddle.spinFor(reverse, 1000, degrees, true);
+
+      // going reverse at 50% power
+
+      LeftFront.setVelocity(50, percent);
+      LeftMiddle.setVelocity(50, percent);
+      LeftBack.setVelocity(50, percent);
+      RightFront.setVelocity(50, percent);
+      RightMiddle.setVelocity(50, percent);
+      RightBack.setVelocity(50, percent);
+
+      LeftFront.spinFor(reverse, 200, degrees, false);
+      LeftBack.spinFor(reverse, 200, degrees, false);
+      LeftMiddle.spinFor(reverse, 200, degrees, false);
+      RightFront.spinFor(reverse, 200, degrees, false);
+      RightBack.spinFor(reverse, 200, degrees, false);
+      RightMiddle.spinFor(reverse, 200, degrees, true);
+
+      // reset velocity to 100%
+
+      LeftFront.setVelocity(100, percent);
+      LeftMiddle.setVelocity(100, percent);
+      LeftBack.setVelocity(100, percent);
+      RightFront.setVelocity(100, percent);
+      RightMiddle.setVelocity(100, percent);
+      RightBack.setVelocity(100, percent);
 
       Sporklift.setVelocity(50, percent);
       Sporklift.spinFor(reverse, 400, degrees, true);
