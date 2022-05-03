@@ -19,6 +19,7 @@
 
 #include "vex.h"
 #include <cmath>
+#include <string>
 
 using namespace vex;
 // A global instance of competition
