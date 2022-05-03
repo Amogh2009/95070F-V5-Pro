@@ -545,14 +545,14 @@ void autonomous(void) {
       RightMiddle.spinFor(reverse, x-150, degrees, false);
       LeftMiddle.spinFor(reverse, x-150, degrees, true);
 
-      LeftFront.spinFor(forward, 400, degrees, false);
-      LeftBack.spinFor(forward, 400, degrees, false);
-      LeftMiddle.spinFor(forward, 400, degrees, false);
-      RightFront.spinFor(reverse, 400, degrees, false);
-      RightBack.spinFor(reverse, 400, degrees, false);
-      RightMiddle.spinFor(reverse, 400, degrees, true);
+      LeftFront.spinFor(forward, 410, degrees, false);
+      LeftBack.spinFor(forward, 410, degrees, false);
+      LeftMiddle.spinFor(forward, 410, degrees, false);
+      RightFront.spinFor(reverse, 410, degrees, false);
+      RightBack.spinFor(reverse, 410, degrees, false);
+      RightMiddle.spinFor(reverse, 410, degrees, true);
 
-      ClampSolenoid.set(false);
+      //ClampSolenoid.set(false);
 
       Sporklift.setVelocity(100, percent);
       Sporklift.spinFor(forward, 600, degrees, true);
