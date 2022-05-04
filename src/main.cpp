@@ -546,12 +546,14 @@ void autonomous(void) {
       RightMiddle.spinFor(reverse, x-150, degrees, false);
       LeftMiddle.spinFor(reverse, x-150, degrees, true);
 
-      LeftFront.spinFor(forward, 430, degrees, false);
-      LeftBack.spinFor(forward, 430, degrees, false);
-      LeftMiddle.spinFor(forward, 430, degrees, false);
-      RightFront.spinFor(reverse, 430, degrees, false);
-      RightBack.spinFor(reverse, 430, degrees, false);
-      RightMiddle.spinFor(reverse, 430, degrees, true);
+      int turn = 430;
+
+      LeftFront.spinFor(forward, turn, degrees, false);
+      LeftBack.spinFor(forward, turn, degrees, false);
+      LeftMiddle.spinFor(forward, turn, degrees, false);
+      RightFront.spinFor(reverse, turn, degrees, false);
+      RightBack.spinFor(reverse, turn, degrees, false);
+      RightMiddle.spinFor(reverse, turn, degrees, true);
 
       //ClampSolenoid.set(false);
 
