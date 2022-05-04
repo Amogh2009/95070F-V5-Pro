@@ -504,7 +504,7 @@ void autonomous(void) {
       RightBack.spin(forward);
       RightMiddle.spin(forward);
       LeftMiddle.spin(forward);
-      while(LeftFront.position(degrees)< x + 40 - (elevated ? 20 : 0)){
+      while(LeftFront.position(degrees)< x + 40 - (elevated ? 40 : 0)){
         wait(10, msec);
       }
       LeftFront.stop();
