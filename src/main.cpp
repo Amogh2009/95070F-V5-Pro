@@ -546,7 +546,7 @@ void autonomous(void) {
       RightMiddle.spinFor(reverse, x-150, degrees, false);
       LeftMiddle.spinFor(reverse, x-150, degrees, true);
 
-      int turn = 430;
+      int turn = 440;
 
       LeftFront.spinFor(forward, turn, degrees, false);
       LeftBack.spinFor(forward, turn, degrees, false);
