@@ -528,7 +528,7 @@ void autonomous(void) {
       */
 
       ClampSolenoid.set(true);
-
+      
       //LeftFront.setVelocity(100, rpm);
       //LeftBack.setVelocity(100, rpm);
 
@@ -546,12 +546,12 @@ void autonomous(void) {
       RightMiddle.spinFor(reverse, x-150, degrees, false);
       LeftMiddle.spinFor(reverse, x-150, degrees, true);
 
-      LeftFront.spinFor(forward, 410, degrees, false);
-      LeftBack.spinFor(forward, 410, degrees, false);
-      LeftMiddle.spinFor(forward, 410, degrees, false);
-      RightFront.spinFor(reverse, 410, degrees, false);
-      RightBack.spinFor(reverse, 410, degrees, false);
-      RightMiddle.spinFor(reverse, 410, degrees, true);
+      LeftFront.spinFor(forward, 430, degrees, false);
+      LeftBack.spinFor(forward, 430, degrees, false);
+      LeftMiddle.spinFor(forward, 430, degrees, false);
+      RightFront.spinFor(reverse, 430, degrees, false);
+      RightBack.spinFor(reverse, 430, degrees, false);
+      RightMiddle.spinFor(reverse, 430, degrees, true);
 
       //ClampSolenoid.set(false);
 
