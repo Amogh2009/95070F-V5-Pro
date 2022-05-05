@@ -422,7 +422,7 @@ void autonomous(void) {
       RightBack.spin(forward);
       RightMiddle.spin(forward);
       LeftMiddle.spin(forward);
-      while(LeftFront.position(degrees)< x + 40 - (elevated ? 20 : 0)){
+      while(LeftFront.position(degrees)< x - 120 - (elevated ? 20 : 0)) {
         wait(10, msec);
       }
       LeftFront.stop();
@@ -546,7 +546,7 @@ void autonomous(void) {
       RightMiddle.spinFor(reverse, x-150, degrees, false);
       LeftMiddle.spinFor(reverse, x-150, degrees, true);
 
-      int turn = 440;
+      int turn = 440 + (elevated ? 7 : 0);
 
       LeftFront.spinFor(forward, turn, degrees, false);
       LeftBack.spinFor(forward, turn, degrees, false);
