@@ -114,6 +114,47 @@ void PID (double kP, double kI, double kD, double maxIntegral, double tolerance,
 
 int speedFactor = 1;
 
+void setStopping(vex::brakeType stoppingType) {
+  LeftFront.setStopping(stoppingType);
+  LeftBack.setStopping(stoppingType);
+  LeftMiddle.setStopping(stoppingType);
+  RightFront.setStopping(stoppingType);
+  RightBack.setStopping(stoppingType);
+  RightMiddle.setStopping(stoppingType);
+}
+
+void setVelocity(int velocity) {
+  LeftFront.setVelocity(velocity, percent);
+  LeftBack.setVelocity(velocity, percent);
+  LeftMiddle.setVelocity(velocity, percent);
+  RightFront.setVelocity(velocity, percent);
+  RightBack.setVelocity(velocity, percent);
+  RightMiddle.setVelocity(velocity, percent);
+}
+
+typedef int turntype;
+const turntype left = 1;
+const turntype right = 0;
+
+
+void turn(turntype direction, int rotation) {
+  LeftFront.spinFor(direction ? reverse : forward, rotation, degrees, false);
+  LeftBack.spinFor(direction ? reverse : forward, rotation, degrees, false);
+  LeftMiddle.spinFor(direction ? reverse : forward, rotation, degrees, false);
+  RightFront.spinFor(direction ? forward : reverse, rotation, degrees, false);
+  RightBack.spinFor(direction ? forward : reverse, rotation, degrees, false);
+  RightMiddle.spinFor(direction ? forward : reverse, rotation, degrees, true);
+}
+
+void move(vex::directionType direction, int rotation) {
+  LeftFront.spinFor(direction, rotation, degrees, false);
+  LeftBack.spinFor(direction, rotation, degrees, false);
+  LeftMiddle.spinFor(direction, rotation, degrees, false);
+  RightFront.spinFor(direction, rotation, degrees, false);
+  RightBack.spinFor(direction, rotation, degrees, false);
+  RightMiddle.spinFor(direction, rotation, degrees, true);
+}
+
 void platformMode() {
   if(Controller1.ButtonX.pressing()){
     speedFactor = 6;
@@ -399,306 +440,102 @@ void autonomous(void) {
       break;
     }
     case 1:{ //Left Neutral
-      LeftFront.setStopping(coast);
-      LeftBack.setStopping(coast);
-      RightBack.setStopping(coast);
-      RightFront.setStopping(coast);
-      LeftMiddle.setStopping(coast);
-      RightMiddle.setStopping(coast);
-      LeftFront.setVelocity(100, percent);
-      LeftBack.setVelocity(100, percent);
-      RightFront.setVelocity(100, percent);
-      RightBack.setVelocity(100, percent);
-      RightMiddle.setVelocity(100, percent);
-      LeftMiddle.setVelocity(100, percent);
-      LeftFront.setPosition(0, degrees);
-      Clamp.setVelocity(100, percent);
-      //Clamp.spinFor(forward, -45, degrees, false);
+      setStopping(coast);
+      setVelocity(100);
       ClampSolenoid.set(false);
       RightLift.spinFor(reverse, 50, degrees, false);
-      LeftFront.spin(forward);
-      LeftBack.spin(forward);
-      RightFront.spin(forward);
-      RightBack.spin(forward);
-      RightMiddle.spin(forward);
-      LeftMiddle.spin(forward);
-      while(LeftFront.position(degrees)< x - 120 - (elevated ? 20 : 0)) {
-        wait(10, msec);
-      }
-      LeftFront.stop();
-      LeftBack.stop();
-      RightFront.stop();
-      RightBack.stop();
-      RightMiddle.stop();
-      LeftMiddle.stop();
 
+      if (elevated) {
+        move(forward, x - 140);
+      } else {
+        move(forward, x-120);
+      }
+      
       wait(100, msec);
 
-      /* Clamp.setVelocity(100, percent);
-
-      Clamp.setPosition(0, degrees);
-      Clamp.spin(forward);
-      while(Clamp.position(degrees) < 40){
-        wait(10, msec);
-      }
-
-      Clamp.stop();
-      */
-
       ClampSolenoid.set(true);
-
-      //LeftFront.setVelocity(100, rpm);
-      //LeftBack.setVelocity(100, rpm);
-
-      LeftFront.setVelocity(100, percent);
-      LeftBack.setVelocity(100, percent);
-      RightFront.setVelocity(100, percent);
-      RightBack.setVelocity(100, percent);
-      RightMiddle.setVelocity(100, percent);
-      LeftMiddle.setVelocity(100, percent);  
-
-      LeftFront.spinFor(reverse, x, degrees, false);
-      LeftBack.spinFor(reverse, x, degrees, false);
-      RightFront.spinFor(reverse, x, degrees, false);
-      RightBack.spinFor(reverse, x, degrees, false);
-      RightMiddle.spinFor(reverse, x, degrees, false);
-      LeftMiddle.spinFor(reverse, x, degrees, false);
+      move(reverse, x);
       break; 
     }
     case 2: { //AWP Left
-      /* Clamp.spinFor(forward, 40, degrees, true);
-      Clamp.spinFor(forward, -40, degrees, true); */
       ClampSolenoid.set(false);
       break;
     }
     case 3: { //AWP Right
-      LeftFront.setStopping(coast);
-      LeftBack.setStopping(coast);
-      RightBack.setStopping(coast);
-      RightFront.setStopping(coast);
-      RightMiddle.setStopping(coast);
-      LeftMiddle.setStopping(coast);
+      setStopping(coast);
       break;
     }
     case 4: { //2 Goal Right
-      LeftFront.setStopping(coast);
-      LeftBack.setStopping(coast);
-      RightBack.setStopping(coast);
-      RightFront.setStopping(coast);
-      LeftMiddle.setStopping(coast);
-      RightMiddle.setStopping(coast);
-      LeftFront.setVelocity(100, percent);
-      LeftBack.setVelocity(100, percent);
-      RightFront.setVelocity(100, percent);
-      RightBack.setVelocity(100, percent);
-      RightMiddle.setVelocity(100, percent);
-      LeftMiddle.setVelocity(100, percent);
-      LeftFront.setPosition(0, degrees);
-      Clamp.setVelocity(100, percent);
-      //Clamp.spinFor(forward, -45, degrees, false);
+      setStopping(coast);
+      setVelocity(100);
       ClampSolenoid.set(false);
-      //RightLift.spinFor(reverse, 50, degrees, false);
-      LeftFront.spin(forward);
-      LeftBack.spin(forward);
-      RightFront.spin(forward);
-      RightBack.spin(forward);
-      RightMiddle.spin(forward);
-      LeftMiddle.spin(forward);
-      while(LeftFront.position(degrees)< x + 40 - (elevated ? 40 : 0)){
-        wait(10, msec);
+      if (elevated) {
+        move(forward, x);
+      } else {
+        move(forward, x + 40);
       }
-      LeftFront.stop();
-      LeftBack.stop();
-      RightFront.stop();
-      RightBack.stop();
-      RightMiddle.stop();
-      LeftMiddle.stop();
-
+      
       wait(100, msec);
 
-      /* Clamp.setVelocity(100, percent);
-
-      Clamp.setPosition(0, degrees);
-      Clamp.spin(forward);
-      while(Clamp.position(degrees) < 40){
-        wait(10, msec);
-      }
-
-      Clamp.stop();
-      */
-
       ClampSolenoid.set(true);
-      
-      //LeftFront.setVelocity(100, rpm);
-      //LeftBack.setVelocity(100, rpm);
 
-      LeftFront.setVelocity(100, percent);
-      LeftBack.setVelocity(100, percent);
-      RightFront.setVelocity(100, percent);
-      RightBack.setVelocity(100, percent);
-      RightMiddle.setVelocity(100, percent);
-      LeftMiddle.setVelocity(100, percent);  
+      move(reverse, x - 150);
 
-      LeftFront.spinFor(reverse, x-150, degrees, false);
-      LeftBack.spinFor(reverse, x-150, degrees, false);
-      RightFront.spinFor(reverse, x-150, degrees, false);
-      RightBack.spinFor(reverse, x-150, degrees, false);
-      RightMiddle.spinFor(reverse, x-150, degrees, false);
-      LeftMiddle.spinFor(reverse, x-150, degrees, true);
+      int turnDegrees = 440 + (elevated ? 7 : 0);
 
-      int turn = 440 + (elevated ? 7 : 0);
-
-      LeftFront.spinFor(forward, turn, degrees, false);
-      LeftBack.spinFor(forward, turn, degrees, false);
-      LeftMiddle.spinFor(forward, turn, degrees, false);
-      RightFront.spinFor(reverse, turn, degrees, false);
-      RightBack.spinFor(reverse, turn, degrees, false);
-      RightMiddle.spinFor(reverse, turn, degrees, true);
-
-      //ClampSolenoid.set(false);
+      turn(::right, turnDegrees);
 
       Sporklift.setVelocity(100, percent);
       Sporklift.spinFor(forward, 600, degrees, true);
 
       // going reverse to pick up tall goal at 100% power
-
-      LeftFront.spinFor(reverse, 1000, degrees, false);
-      LeftBack.spinFor(reverse, 1000, degrees, false);
-      LeftMiddle.spinFor(reverse, 1000, degrees, false);
-      RightFront.spinFor(reverse, 1000, degrees, false);
-      RightBack.spinFor(reverse, 1000, degrees, false);
-      RightMiddle.spinFor(reverse, 1000, degrees, true);
+      move(reverse, 1000);
 
       // going reverse at 50% power
-
-      LeftFront.setVelocity(50, percent);
-      LeftMiddle.setVelocity(50, percent);
-      LeftBack.setVelocity(50, percent);
-      RightFront.setVelocity(50, percent);
-      RightMiddle.setVelocity(50, percent);
-      RightBack.setVelocity(50, percent);
-
-      LeftFront.spinFor(reverse, 200, degrees, false);
-      LeftBack.spinFor(reverse, 200, degrees, false);
-      LeftMiddle.spinFor(reverse, 200, degrees, false);
-      RightFront.spinFor(reverse, 200, degrees, false);
-      RightBack.spinFor(reverse, 200, degrees, false);
-      RightMiddle.spinFor(reverse, 200, degrees, true);
+      setVelocity(50);
+      move(reverse, 200);
 
       // reset velocity to 100%
-
-      LeftFront.setVelocity(100, percent);
-      LeftMiddle.setVelocity(100, percent);
-      LeftBack.setVelocity(100, percent);
-      RightFront.setVelocity(100, percent);
-      RightMiddle.setVelocity(100, percent);
-      RightBack.setVelocity(100, percent);
+      setVelocity(100);
 
       Sporklift.setVelocity(50, percent);
       Sporklift.spinFor(reverse, 400, degrees, true);
 
-      LeftFront.spinFor(forward, 1300, degrees, false);
-      LeftBack.spinFor(forward, 1300, degrees, false);
-      LeftMiddle.spinFor(forward, 1300, degrees, false);
-      RightFront.spinFor(forward, 1300, degrees, false);
-      RightBack.spinFor(forward, 1300, degrees, false);
-      RightMiddle.spinFor(forward, 1300, degrees, true);
+      move(forward, 1300);
       
       wait(100, msec);
       
       break;
     }
     case 5: { //Right Neutral AWP
-      LeftFront.setStopping(coast);
-      LeftBack.setStopping(coast);
-      RightBack.setStopping(coast);
-      RightFront.setStopping(coast);
-      RightMiddle.setStopping(coast);
-      LeftMiddle.setStopping(coast);
-      LeftFront.setVelocity(100, percent);
-      LeftBack.setVelocity(100, percent);
-      RightFront.setVelocity(100, percent);
-      RightBack.setVelocity(100, percent);
-      RightMiddle.setVelocity(100, percent);
-      LeftMiddle.setVelocity(100, percent);
+      setStopping(coast);
+      setVelocity(100);
       LeftFront.setPosition(0, degrees);
-      Clamp.setVelocity(100, percent);
       
       // setting up for auton
-
-      Clamp.spinFor(forward, -45, degrees, false);
       RightLift.spinFor(reverse, 50, degrees, false);
       
       // spinning forward towards the goal
       
-      LeftFront.spin(forward);
-      LeftBack.spin(forward);
-      RightFront.spin(forward);
-      RightBack.spin(forward);
-      RightMiddle.spin(forward);
-      LeftMiddle.spin(forward);
-      while(LeftFront.position(degrees)< x){
-        wait(10, msec);
-      }
-      LeftFront.stop();
-      LeftBack.stop();
-      RightFront.stop();
-      RightBack.stop();
-      RightMiddle.stop();
-      LeftMiddle.stop();
+      move(forward, x);
 
       wait(100, msec);
 
       // clamp down
       
-      Clamp.setVelocity(100, percent);
-
-      /*Clamp.setPosition(0, degrees);
-      Clamp.spin(forward);
-      while(Clamp.position(degrees) < 40){
-        wait(10, msec);
-      }
-
-      Clamp.stop();*/
-
-      Clamp.spinFor(forward, 45, degrees, false);
-
-      //LeftFront.setVelocity(100, rpm);
-      //LeftBack.setVelocity(100, rpm);
+      ClampSolenoid.set(true);
 
       // moving backwards with the goal
 
-      LeftFront.setVelocity(100, percent);
-      LeftBack.setVelocity(100, percent);
-      RightFront.setVelocity(100, percent);
-      RightBack.setVelocity(100, percent);
-      LeftMiddle.setVelocity(100, percent);
-      RightMiddle.setVelocity(100, percent);  
-
-      LeftFront.spinFor(reverse, x, degrees, false);
-      LeftBack.spinFor(reverse, x, degrees, false);
-      RightFront.spinFor(reverse, x, degrees, false);
-      RightBack.spinFor(reverse, x, degrees, true);
-      LeftMiddle.spinFor(reverse, x, degrees, true);
-      RightMiddle.spinFor(reverse, x, degrees, true);
+      move(reverse, x);
 
       // turning 90°
       
-      LeftFront.spinFor(reverse, 250, degrees, false);
-      LeftBack.spinFor(reverse, 250, degrees, false);
-      RightFront.spinFor(forward, 250, degrees, false);
-      RightBack.spinFor(forward, 250, degrees, true);
-      RightMiddle.spinFor(forward, 250, degrees, true);
-      LeftMiddle.spinFor(forward, 250, degrees, true);
+      turn(::left, 250);
 
       // moving backwards to place ring in alliance goal
       
-      LeftFront.spinFor(reverse, 100, degrees, false);
-      LeftBack.spinFor(reverse, 100, degrees, false);
-      RightFront.spinFor(reverse, 100, degrees, false);
-      RightBack.spinFor(reverse, 100, degrees, true);
-      RightMiddle.spinFor(reverse, 100, degrees, true);
-      LeftMiddle.spinFor(reverse, 100, degrees, true);
+      move(reverse, 100);
 
       // placing ring in alliance goal
       
@@ -706,12 +543,7 @@ void autonomous(void) {
 
       // setting up to pickup alliance goal by moving forward
       
-      LeftFront.spinFor(forward, 135, degrees, false);
-      LeftBack.spinFor(forward, 135, degrees, false);
-      RightFront.spinFor(forward, 135, degrees, false);
-      RightBack.spinFor(forward, 135, degrees, true);
-      LeftMiddle.spinFor(forward, 135, degrees, true);
-      RightMiddle.spinFor(forward, 135, degrees, true);
+      move(forward, 135);
 
       // 2nd part of setting up to pick up alliance goal; moving forklift down
       
@@ -719,12 +551,7 @@ void autonomous(void) {
       
       // 3rd part of setting up; moving backwards with forklift down
       
-      LeftFront.spinFor(reverse, 150, degrees, false);
-      LeftBack.spinFor(reverse, 150, degrees, false);
-      RightFront.spinFor(reverse, 150, degrees, false);
-      RightBack.spinFor(reverse, 150, degrees, true);
-      RightMiddle.spinFor(reverse, 150, degrees, true);
-      LeftMiddle.spinFor(reverse, 150, degrees, true);
+      move(reverse, 150);
 
       // 4th part of getting AWP; forklifting up to pick up goal
       
@@ -732,78 +559,25 @@ void autonomous(void) {
       
       // moving forward to get the AWP
       
-      LeftFront.spinFor(forward, 145, degrees, false);
-      LeftBack.spinFor(forward, 145, degrees, false);
-      RightFront.spinFor(forward, 145, degrees, false);
-      RightBack.spinFor(forward, 145, degrees, true);
-      LeftMiddle.spinFor(forward, 145, degrees, true);
-      RightMiddle.spinFor(forward, 145, degrees, true);
+      move(forward, 145);
       
       break; 
     }
     case 6: { //Right Mid
-      
-
-      LeftFront.setStopping(coast);
-      LeftBack.setStopping(coast);
-      RightBack.setStopping(coast);
-      RightFront.setStopping(coast);
-      RightMiddle.setStopping(coast);
-      LeftMiddle.setStopping(coast);
-      LeftFront.setVelocity(100, percent);
-      LeftBack.setVelocity(100, percent);
-      RightFront.setVelocity(100, percent);
-      RightBack.setVelocity(100, percent);
-      RightMiddle.setVelocity(100, percent);
-      LeftMiddle.setVelocity(100, percent);
-      LeftFront.setPosition(0, degrees);
-      Clamp.setVelocity(100, percent);
-      Clamp.spinFor(forward, -45, degrees, false);
+      setStopping(coast);
+      setVelocity(100);
       RightLift.spinFor(reverse, 50, degrees, false);
-      LeftFront.spin(forward);
-      LeftBack.spin(forward);
-      RightFront.spin(forward);
-      RightBack.spin(forward);
-      RightMiddle.spin(forward);
-      LeftMiddle.spin(forward);
-      while(LeftFront.position(degrees)< x + 430 - (elevated ? 20 : 0)){
-        wait(10, msec);
+      if (elevated) {
+        move(forward, x + 410);
+      } else {
+        move(forward, x + 430);
       }
-      LeftFront.stop();
-      LeftBack.stop();
-      RightFront.stop();
-      RightBack.stop();
-      LeftMiddle.stop();
-      RightMiddle.stop();
-
+      
       wait(100, msec);
 
-      Clamp.setVelocity(100, percent);
-
-      Clamp.setPosition(0, degrees);
-      Clamp.spin(forward);
-      while(Clamp.position(degrees) < 40){
-        wait(10, msec);
-      }
-
-      Clamp.stop();
-
-      //LeftFront.setVelocity(100, rpm);
-      //LeftBack.setVelocity(100, rpm);
-
-      LeftFront.setVelocity(100, percent);
-      LeftBack.setVelocity(100, percent);
-      RightFront.setVelocity(100, percent);
-      RightBack.setVelocity(100, percent); 
-      LeftMiddle.setVelocity(100, percent); 
-      RightMiddle.setVelocity(100, percent);  
-
-      LeftFront.spinFor(reverse, x + 230, degrees, false);
-      LeftBack.spinFor(reverse, x + 230, degrees, false);
-      RightFront.spinFor(reverse, x + 230, degrees, false);
-      RightBack.spinFor(reverse, x + 230, degrees, false);
-      RightMiddle.spinFor(reverse, x + 230, degrees, false);
-      LeftMiddle.spinFor(reverse, x + 230, degrees, false);
+      ClampSolenoid.set(true);
+      
+      move(reverse, x + 230);
       break;
     }
     case 7: { //AWP Carry from Left
